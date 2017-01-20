@@ -48,8 +48,12 @@ export class GameState extends Phaser.State {
             this.hitPower = null;
 
             let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-            this.rockObject.hit(rockHit);
+            this.rockObject.hit(rockHit)
+                .then(() => {
+                    // TODO count hits for player
+                });
         }
+
 
         this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
         if (this.hitPower) {

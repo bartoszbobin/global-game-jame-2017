@@ -7,4 +7,5 @@
  */
 
 /// <reference path="../../node_modules/phaser/typescript/phaser.d.ts" />
+/// <reference path="../../node_modules/es6-promise/es6-promise.d.ts" />
 
