@@ -5,11 +5,11 @@
     "eofline": true,
     "indent": [
       true,
-      "tab"
+      "spaces"
     ],
     "max-line-length": [
       false,
-      100
+      180
     ],
     "member-ordering": [
       true,
@@ -39,7 +39,7 @@
       true,
       "single"
     ],
-    "semicolon": false,
+    "semicolon": true,
     "triple-equals": [
       true,
       "allow-null-check"
