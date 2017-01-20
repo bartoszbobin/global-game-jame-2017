@@ -4,6 +4,7 @@ import {Player} from '../sprites/player';
 import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
+import {Level} from '../sprites/level';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -12,6 +13,7 @@ export class GameState extends Phaser.State {
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockObject : Rock;
+    private level : Level;
 
     init() {
         this.mousePointer = this.input.mousePointer;
@@ -21,6 +23,7 @@ export class GameState extends Phaser.State {
     }
 
     create() {
+        this.addLevel();
         this.addPlayer();
         this.addMouseInfo();
         this.addRock();
@@ -76,6 +79,11 @@ export class GameState extends Phaser.State {
         this.rockObject = new Rock(this.game, this.player);
         this.game.add.existing(this.rockObject);
         this.game.physics.enable(this.rockObject, Phaser.Physics.ARCADE);
+    }
 
+    private addLevel() {
+        this.level =  new Level(this.game);
+        this.game.add.existing(this.level);
+        this.game.physics.enable(this.level, Phaser.Physics.ARCADE);
     }
 }
