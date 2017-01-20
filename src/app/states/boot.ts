@@ -9,7 +9,7 @@ export class BootState extends Phaser.State {
         this.stage.backgroundColor = '#EDEEC9';
         this.fontsReady = false;
         this.fontsLoaded = this.fontsLoaded.bind(this);
-    }
+    }     
 
     preload() {
         WebFont.load({

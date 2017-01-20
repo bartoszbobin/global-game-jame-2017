@@ -8,8 +8,8 @@ import {GameState} from './states/game';
 
 export class Game extends Phaser.Game {
     constructor() {
-        let width = 1366;
-        let height = 768;
+        let width = 1280;
+        let height = 620;
 
         super(width, height, Phaser.AUTO, 'content', null);
 
