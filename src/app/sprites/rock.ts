@@ -23,7 +23,8 @@ export class Rock extends Phaser.Sprite {
             this.body.velocity.setTo(0, 0);
 
             this.game.add.tween(this)
-                .to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true, 0, 0, true)
+                .to({ alpha: 0 }, 500, Phaser.Easing.Linear.None)
+                .start()
                 .onComplete
                     .addOnce(() => this.setStartState());
         }
@@ -32,6 +33,7 @@ export class Rock extends Phaser.Sprite {
     hit(rockHit: RockHit) {
         this.rockHit = rockHit;
         this.visible = true;
+        this.alpha = 1;
         this.game.physics.arcade.moveToXY(this, rockHit.toPoint.x, rockHit.toPoint.y, 1, 1000);
     }
 
@@ -39,6 +41,6 @@ export class Rock extends Phaser.Sprite {
         this.position.x = this.player.position.x;
         this.position.y = this.player.position.y;
         this.visible = false;
-        this.alpha = 1;
+        this.rockHit = null;
     }
 }
