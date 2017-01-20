@@ -21,7 +21,6 @@ export class SplashState extends Phaser.State {
     }
 
     create() {
-        this.game.state.start('Game');
+        this.game.state.start('Menu');
     }
-
 }

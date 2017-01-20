@@ -5,17 +5,19 @@ import * as Phaser from 'phaser';
 import {BootState} from './states/boot';
 import {SplashState} from './states/splash';
 import {GameState} from './states/game';
+import {MenuState} from './states/menu';
 
 export class Game extends Phaser.Game {
     constructor() {
         let width = 1280;
-        let height = 620;
+        let height = 620;      
 
         super(width, height, Phaser.AUTO, 'content', null);
 
         this.state.add('Boot', BootState, false);
         this.state.add('Splash', SplashState, false);
         this.state.add('Game', GameState, false);
+        this.state.add('Menu', MenuState, false)
 
         this.state.start('Boot');
     }
