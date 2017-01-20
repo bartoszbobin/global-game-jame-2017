@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
-import {Mushroom} from '../sprites/mushroom.ts'
-import {setResponsiveWidth} from '../utils.ts'
+import {Mushroom} from '../sprites/mushroom'
+import {setResponsiveWidth} from '../utils'
 
 export class GameState extends Phaser.State {
   mushroom: Mushroom
