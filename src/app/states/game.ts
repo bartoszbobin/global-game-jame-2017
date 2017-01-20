@@ -41,22 +41,32 @@ export class GameState extends Phaser.State {
 
         this.player.setAngleInDeg(angleInDeg);
 
-        if (this.mousePointer.isDown && !this.hitPower) {
-            this.hitPower = new HitPower();
+        if (this.mousePointer.isDown) {
+            if (!this.hitPower) {
+                if (this.rockObject.isReadyToHit()) {
+                   this.hitPower = new HitPower();
+                }
+            } else {
+                if (this.rockObject.isReadyToHit()) {
+                    if (this.hitPower.waitingTooLong()) {
+                        this.hitPower = null;
+                    }
+                }
+            }
         }
 
         if (this.mousePointer.isUp && this.hitPower) {
             // throwing rock
-            const hitPower : number = this.hitPower.getPower();
+            if (!this.hitPower.waitingTooShort()) {
+                const hitPower: number = this.hitPower.getPower();
+                let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
+                this.rockObject.hit(rockHit)
+                    .then(() => {
+                        // TODO count hits for player
+                    });
+            }
             this.hitPower = null;
-
-            let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-            this.rockObject.hit(rockHit)
-                .then(() => {
-                    // TODO count hits for player
-                });
         }
-
 
         this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
         if (this.hitPower) {
@@ -74,7 +84,7 @@ export class GameState extends Phaser.State {
 
         this.mouseInfo.font = 'Nunito';
         this.mouseInfo.fontSize = 16;
-        this.mouseInfo.fill = '#77BFA3';
+        this.mouseInfo.fill = '#FF0000';
 
         this.mouseInfo.anchor.setTo(0);
     }

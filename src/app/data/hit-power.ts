@@ -1,5 +1,8 @@
 export class HitPower {
 
+    private static MIN_HOLD_TIME = 200;
+    private static MAX_HOLD_TIME = 2000;
+
     private startTimestamp : number;
 
     static getTimeStamp() : number {
@@ -11,6 +14,18 @@ export class HitPower {
     }
 
     public getPower() {
-        return HitPower.getTimeStamp() - this.startTimestamp;
+        return this.getHoldTime() / 10;
+    }
+
+    public waitingTooLong() : boolean {
+        return this.getHoldTime() >= HitPower.MAX_HOLD_TIME;
+    }
+
+    public waitingTooShort() : boolean {
+        return this.getHoldTime() < HitPower.MIN_HOLD_TIME;
+    }
+
+    private getHoldTime() {
+        return (HitPower.getTimeStamp() - this.startTimestamp);
     }
 }
