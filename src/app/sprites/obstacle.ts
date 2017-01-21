@@ -2,7 +2,7 @@ import {ObstacleAsset} from '../data/models';
 import * as Phaser from 'phaser';
 
 export class Obstacle extends Phaser.Sprite {
-    private get doesDamage(): number {return 10;}
+    private get doesDamage(): number { return 10; }
     protected get p2Body():Phaser.Physics.P2.Body { return this.body };
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
