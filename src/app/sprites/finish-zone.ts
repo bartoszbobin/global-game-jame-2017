@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser';
+import {LevelsManager} from '../levels/levels-manager';
+import {GameState} from '../states/game';
 
 export class FinishZone extends Phaser.Sprite {
     constructor(game: Phaser.Game, x: number, y: number) {
@@ -20,12 +22,8 @@ export class FinishZone extends Phaser.Sprite {
     handleContact(body) {
         console.log('FinishZone - handleContact');
         if (body.sprite.key === 'boat-paper') {
-            let highScore = JSON.parse(localStorage.getItem('highScore'));
-            highScore.push({userName: localStorage.getItem('userName'), score: localStorage.getItem('usedRocks')});
-            localStorage.setItem('highScore', JSON.stringify(highScore));
-
-            this.game.state.start('HighScore');
-            console.log('level completed');
+            let state = this.game.state.states.Game as GameState;
+            state.levelsManager.goToNext();
         }
     }
 

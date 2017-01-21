@@ -4,7 +4,7 @@ import {FinishZone} from '../sprites/finish-zone';
 import {LevelBase} from './level-base';
 
 export class LevelBuilder {
-    private boats: Boat[] = [];
+    private boatsPositions: { x: number, y: number }[] = [];
     private obstacles: Obstacle[] = [];
     private finishZone: FinishZone;
 
@@ -12,17 +12,7 @@ export class LevelBuilder {
     }
 
     withBoats(boatsPositions: { x: number, y: number }[]): LevelBuilder {
-        this.boats = boatsPositions.map(dim => {
-            const boat = new Boat(this.game, dim.x, dim.y);
-
-            this.game.add.existing(boat);
-            this.game.physics.p2.enable(boat);
-
-            boat.setupBody();
-
-            return boat;
-        });
-
+        this.boatsPositions = boatsPositions;
         return this;
     }
 
@@ -39,6 +29,17 @@ export class LevelBuilder {
     }
 
     build(): LevelBase {
-        return new LevelBase(this.levelNumber, this.boats, this.obstacles, this.finishZone, this.game);
+        let boats = this.boatsPositions.map(dim => {
+            const boat = new Boat(this.game, dim.x, dim.y);
+
+            this.game.add.existing(boat);
+            this.game.physics.p2.enable(boat);
+
+            boat.setupBody();
+
+            return boat;
+        });
+
+        return new LevelBase(this.levelNumber, boats, this.obstacles, this.finishZone, this.game);
     }
 }

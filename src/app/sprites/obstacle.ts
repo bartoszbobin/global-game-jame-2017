@@ -13,9 +13,9 @@ export class Obstacle extends Phaser.Sprite {
         this.game = game;
         this.anchor.setTo(0.5, 0.5);
 
-        this.game.physics.p2.enable(this, true);
+        this.game.physics.p2.enable(this);
         this.setupBody();
-        this.body.onBeginContact.add((body) => this.handleContact(body), this.game.state);
+        this.p2Body.onBeginContact.add((body) => this.handleContact(body), this.game.state);
     }
 
     setupBody() {
@@ -74,12 +74,18 @@ export class RockObstacle extends Obstacle {
 export class NavalMineObstacle extends Obstacle {
     private static ROTATION_DEG_FACTOR = Phaser.Math.degToRad(0.15);
     private static MAX_ROTATE_ANGLE = 25;
+    private static MAX_DAMAGE_RADIUS = 30;
     private polygonRadius = 16;
     private rotationDirection = -1;
 
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
         super(game, 'naval-mine', positionX, positionY, rotationInArcs);
+
         this.damagePower = 25;
+    }
+
+    public isArmed() {
+        return !!this.damagePower;
     }
 
     public update() {
@@ -92,7 +98,6 @@ export class NavalMineObstacle extends Obstacle {
     }
 
     setupBody(): void {
-        this.scale.setTo(.2);
         super.setupBody();
     }
 
@@ -100,30 +105,47 @@ export class NavalMineObstacle extends Obstacle {
         if (body.sprite.key === 'boat-paper') {
             body.sprite.addDamage(this.getDamagePower());
             this.blowUp();
+        } else if (body.sprite.key === 'naval-mine') {
+            let navalMine = (<NavalMineObstacle> body.sprite);
+
+            if (navalMine.isArmed()) {
+                this.p2Body.static = true;
+                navalMine.blowUp();
+            }
         }
     }
 
     protected loadPolygon() : void {
-        this.p2Body.setCircle(this.polygonRadius, 0, 0);
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
+        this.p2Body.setCircle(this.polygonRadius, 0, 0);
     }
 
-    private blowUp() {
+    public blowUp() {
         this.damagePower = 0;
 
         this.game.add.tween(this)
-            .to({}, 10, () => {
+            .to({ alpha: 0 }, 1000, (val) => {
                 if (!this || !this.p2Body) {
                     return;
                 }
-                if (this.polygonRadius >= 40) {
+
+                if (this.polygonRadius + 4 > NavalMineObstacle.MAX_DAMAGE_RADIUS) {
+                    this.p2Body.static = false;
+                }
+
+                if (this.polygonRadius >= NavalMineObstacle.MAX_DAMAGE_RADIUS) {
                     this.p2Body.clearShapes();
                 } else {
-                    this.p2Body.setCircle(this.polygonRadius += 0.05);
+
+                    this.p2Body.setZeroVelocity();
+                    this.p2Body.setZeroForce();
+                    this.p2Body.setZeroDamping();
+                    this.p2Body.addCircle(this.polygonRadius += 0.25);
                 }
-            })
-            .repeat(10)
+
+                // return val - 0.01;
+            }, false, 0, 10)
             .start().onComplete.addOnce(() => {
                 this.destroy();
             });
