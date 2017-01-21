@@ -5,6 +5,7 @@ import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
 import {Level} from '../sprites/level';
+import {Boat} from "../sprites/boat";
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -14,6 +15,8 @@ export class GameState extends Phaser.State {
     private hitPower: HitPower;
     private rockObject : Rock;
     private level : Level;
+
+    private boats : Boat[] = [];
 
     init() {
         this.mousePointer = this.input.mousePointer;
@@ -28,6 +31,10 @@ export class GameState extends Phaser.State {
         this.addPlayer();
         this.addMouseInfo();
         this.addRock();
+
+        this.addBoat(192, 128);
+        this.addBoat(237, 288);
+        this.addBoat(577, 480);
     }
 
     render() {
@@ -64,6 +71,8 @@ export class GameState extends Phaser.State {
                 this.rockObject.hit(rockHit)
                     .then(() => {
                         // TODO count hits for player
+                        this.boats[0].getP2Body().applyForce([12,12], rockHit.toPoint.x, rockHit.toPoint.y);
+                        var bodies = this.physics.p2.hitTest(rockHit.toPoint, this.boats);
                     });
             }
             this.hitPower = null;
@@ -94,6 +103,17 @@ export class GameState extends Phaser.State {
         this.rockObject = new Rock(this.game, this.player);
         this.game.add.existing(this.rockObject);
         this.game.physics.enable(this.rockObject, Phaser.Physics.ARCADE);
+    }
+
+    private addBoat(x : number, y: number) {
+        const boat = new Boat(this.game, x, y);
+        this.boats.push(boat);
+
+        this.game.add.existing(boat);
+        this.game.physics.p2.enable(boat, true);
+
+        boat.setupBody();
+        // TODO add polygon
     }
 
     private addLevel() {
