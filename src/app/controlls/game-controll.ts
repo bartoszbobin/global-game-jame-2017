@@ -18,6 +18,10 @@ export class GameControll {
 
     private completeLevel(body) {
         if (body.sprite.key === FINISH_ZONE_KEY) {
+            let highScore = JSON.parse(localStorage.getItem('highScore'));
+            highScore.push({userName: localStorage.getItem('userName'), score: 5});
+            localStorage.setItem('highScore', JSON.stringify(highScore));
+
             this.game.state.start('HighScore');
             console.log('level completed');
         }
