@@ -27,7 +27,7 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().loadPolygon('boatPhysics', 'boat-paper');
     }
 
-    getP2Body() : Phaser.Physics.P2.Body {
+    getP2Body() : Phaser.Physics.P2.Body { .
         return this.body;
     }
 
