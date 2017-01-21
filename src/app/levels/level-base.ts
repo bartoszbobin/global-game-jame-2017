@@ -8,7 +8,7 @@ export class LevelBase extends Phaser.Sprite {
 
     constructor(
         private levelNumber: number,
-        private boats: Boat[],
+        public boats: Boat[],
         obstacles: Obstacle[],
         finishZone: FinishZone,
         game: Phaser.Game

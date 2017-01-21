@@ -10,6 +10,7 @@ import {ScorePanel} from '../sprites/score-panel';
 import {GameControll} from '../controlls/game-controll';
 import {LevelsManager} from '../levels/levels-manager';
 import {LevelBase} from '../levels/level-base';
+import Body = Phaser.Physics.P2.Body;
 
 export class GameState extends Phaser.State {
     private gameControll: GameControll;
@@ -56,6 +57,21 @@ export class GameState extends Phaser.State {
 
     update(): void {
         super.update();
+
+        let boats = this.level.boats;
+        let boatNumStillInGame = boats.length;
+
+        for (const boat of boats) {
+            if (boat.isDead()) {
+                boatNumStillInGame--;
+            }
+        }
+
+        if (!boatNumStillInGame) {
+            this.game.state.start('GameOver');
+            return;
+        }
+
         const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position, this.mousePointer.position));
 
         this.player.setAngleInDeg(angleInDeg);
@@ -116,9 +132,17 @@ export class GameState extends Phaser.State {
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
-        const bodies : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
-        if (bodies.length > 0) {
+        const levelHit : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
+        if (levelHit.length > 0) {
+            console.debug('Ground hit');
             return;
+        }
+
+        const boatHits : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, this.level.boats, 100);
+        if (boatHits.length > 0) {
+            for (const boat of boatHits) {
+                boat.parent.sprite.addDamage(Boat.HIT_BY_ROCK_POINTS);
+            }
         }
 
         const rockMark: RockMark = new RockMark(this.game);
@@ -130,7 +154,7 @@ export class GameState extends Phaser.State {
         this.playerInfo = this.add.text(this.game.width - 200, 10, localStorage.getItem('userName'), {});
 
         this.playerInfo.font = 'Chewy';
-        this.playerInfo.fontSize = 40;       
+        this.playerInfo.fontSize = 40;
     }
 
     private addScorePanel(x: number, y: number) {
