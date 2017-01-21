@@ -25,6 +25,7 @@ export class HighScoreState extends Phaser.State {
     private showHighScore() {
         let scoreBoard = JSON.parse(localStorage.getItem('highScore'));
         let scoreBoardText = '';
+        scoreBoard.sort;
 
         for (let scoreItem of scoreBoard) {
             scoreBoardText += scoreItem.userName + '          ' + scoreItem.score + '\n' ;         

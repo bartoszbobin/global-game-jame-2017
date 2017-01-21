@@ -20,7 +20,7 @@ export class FinishZone extends Phaser.Sprite {
         console.log('FinishZone - handleContact');
         if (body.sprite.key === 'boat-paper') {
             let highScore = JSON.parse(localStorage.getItem('highScore'));
-            highScore.push({userName: localStorage.getItem('userName'), score: 5});
+            highScore.push({userName: localStorage.getItem('userName'), score: localStorage.getItem('usedRocks')});
             localStorage.setItem('highScore', JSON.stringify(highScore));
 
             this.game.state.start('HighScore');

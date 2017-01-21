@@ -21,6 +21,7 @@ export class Player extends Phaser.Sprite {
 
     increaseUsedRocks() : void {
         this.usedRocks++;
+        localStorage.setItem('usedRocks', this.usedRocks.toString())
     }
 
     getUsedRocks() : number {
