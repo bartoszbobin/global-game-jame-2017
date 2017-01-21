@@ -19,6 +19,7 @@ export class GameState extends Phaser.State {
     private rockSprite: Rock;
     private finishZone: FinishZone;
     private level: Level01;
+    private playerName: Phaser.Text;
 
     private obstacles: Phaser.Group;
     private boats: Boat[] = [];
@@ -38,6 +39,7 @@ export class GameState extends Phaser.State {
         this.addMouseInfo();
         this.addRockSprite();
         this.addObstacles();
+        this.addPlayerNameInfo();
 
         this.addBoat(192, 128);
         this.addBoat(237, 288);
@@ -158,5 +160,9 @@ export class GameState extends Phaser.State {
 
     private completeLevel() {
         alert('completed!');
+    }
+
+    private addPlayerNameInfo(){
+        this.playerName = this.add.text(this.game.width - 100, 20, localStorage.getItem('userName') , {});      
     }
 }
