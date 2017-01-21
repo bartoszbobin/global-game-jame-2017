@@ -1,6 +1,6 @@
 import {LevelBuilder} from './levels-builder';
 import {LevelBase} from './level-base';
-import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from '../sprites/obstacle'
+import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from '../sprites/obstacle';
 
 export class LevelsManager {
     private levels = [] as [{ value: LevelBase }];

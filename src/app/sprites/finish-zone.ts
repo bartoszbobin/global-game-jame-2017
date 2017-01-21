@@ -9,6 +9,7 @@ export class FinishZone extends Phaser.Sprite {
 
     setupBody() {
         this.getP2Body().static = true;
+        this.getP2Body().setCircle(50);
         this.body.onBeginContact.add(this.handleContact, this.game.state);
     }
 
