@@ -96,7 +96,7 @@ export class GameState extends Phaser.State {
     }
 
     private addPlayer() {
-        this.player = new Player(this.game, 30, 30);
+        this.player = new Player(this.game, 50, 50);
         this.game.add.existing(this.player);
     }
 
