@@ -1,1 +1,1 @@
- export type ObstacleAsset =  'stick' | 'rock';
+ export type ObstacleAsset =  'stick' | 'rock-obstacle';
