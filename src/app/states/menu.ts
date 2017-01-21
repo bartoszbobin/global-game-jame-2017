@@ -9,6 +9,7 @@ export class MenuState extends Phaser.State {
     private startButton;
 
     init() {
+        this.userName = '';
     }
 
     preload() {
