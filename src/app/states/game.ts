@@ -8,12 +8,12 @@ import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
-import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle} from "../sprites/obstacle";
 import {ScorePanel} from '../sprites/score-panel';
-
-const FINISH_ZONE_KEY = 'finish-zone';
+import {GameControll} from '../controlls/game-controll';
 
 export class GameState extends Phaser.State {
+    private gameControll: GameControll;
+
     private mushroom: Mushroom;
     private player: Player;
     private mouseInfo: Phaser.Text;
@@ -24,14 +24,14 @@ export class GameState extends Phaser.State {
     private level: Level01;
     private playerInfo: Phaser.Text;
 
-    private obstacles: Phaser.Group;
-    private boats: Boat[] = [];
     private scorePanel: ScorePanel;
 
     init() {
         this.mousePointer = this.input.mousePointer;
         this.stage.backgroundColor = '#01A2A6';
         this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+        this.gameControll = new GameControll(this.game);
     }
 
     preload() {
@@ -42,12 +42,7 @@ export class GameState extends Phaser.State {
         this.addPlayer();
         this.addMouseInfo();
         this.addRockSprite();
-        this.addObstacles();
         this.addPlayerInfo();
-
-        this.addBoat(192, 128);
-        this.addBoat(237, 288);
-        this.addBoat(577, 480);
 
         this.addFinishZone();
 
@@ -121,33 +116,8 @@ export class GameState extends Phaser.State {
         this.game.physics.enable(this.rockSprite, Phaser.Physics.ARCADE);
     }
 
-
-    private addObstacles() {
-        this.obstacles = this.add.group();
-        let obstacles = [
-            new StickObstacle(this.game, 300, 300),
-            new StickObstacle(this.game, 390, 120, 90),
-            new WoodObstacle(this.game, 645, 280, 45),
-            new RockObstacle(this.game, 250, 440, 45),
-            new RockObstacle(this.game, 720, 500, 0),
-            new RocksGroupObstacle(this.game, 300, 400, 0, 10),
-        ];
-        this.obstacles.addMultiple(obstacles);
-        this.game.add.existing(this.obstacles);
-    }
-
-    private addBoat(x: number, y: number) {
-        const boat = new Boat(this.game, x, y);
-        this.boats.push(boat);
-
-        this.game.add.existing(boat);
-        this.game.physics.p2.enable(boat, true);
-        boat.body.onBeginContact.add(this.completeLevel, this);
-        boat.setupBody();
-    }
-
     private addLevel() {
-        this.level = new Level01(this.game);
+        this.level = new Level01(this.game, this.gameControll);
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
@@ -166,12 +136,6 @@ export class GameState extends Phaser.State {
         this.game.add.existing(finishZone);
         this.game.physics.p2.enable(finishZone, true);
         finishZone.setupBody();
-    }
-
-    private completeLevel(body) {
-        if (body.sprite.key === FINISH_ZONE_KEY) {
-            console.log("level completed");
-        }
     }
 
     private addPlayerInfo() {
