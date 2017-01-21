@@ -9,6 +9,7 @@ import {RockMark} from '../sprites/rock-mark';
 import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
 import {StickObstacle, RockObstacle} from '../sprites/obstacle';
+import {ScorePanel} from '../sprites/score-panel';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -23,6 +24,7 @@ export class GameState extends Phaser.State {
 
     private obstacles: Phaser.Group;
     private boats: Boat[] = [];
+    private scorePanel: ScorePanel;
 
     init() {
         this.mousePointer = this.input.mousePointer;
@@ -46,6 +48,8 @@ export class GameState extends Phaser.State {
         this.addBoat(577, 480);
 
         this.addFinishZone();
+
+        this.addScorePanel(500, 10);
     }
 
     render() {
@@ -80,7 +84,10 @@ export class GameState extends Phaser.State {
                 const hitPower: number = this.hitPower.getPower();
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
                 this.rockSprite.hit(rockHit)
-                    .then(() => this.applyRockImpactOnItems(rockHit));
+                    .then(() => {
+                        this.player.increaseUsedRocks();
+                        this.applyRockImpactOnItems(rockHit);
+                    });
             }
             this.hitPower = null;
         }
@@ -146,6 +153,7 @@ export class GameState extends Phaser.State {
         if (bodies.length > 0) {
             return;
         }
+
         const rockMark: RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
@@ -162,9 +170,14 @@ export class GameState extends Phaser.State {
         alert('completed!');
     }
 
-    private addPlayerInfo(){
-        this.playerInfo = this.add.text(this.game.width - 100, 20, localStorage.getItem('userName') , {});  
+    private addPlayerInfo() {
+        this.playerInfo = this.add.text(this.game.width - 100, 20, localStorage.getItem('userName'), {});
 
-        this.playerInfo.font = "Chewy"; 
+        this.playerInfo.font = 'Chewy';
+    }
+
+    private addScorePanel(x: number, y: number) {
+        this.scorePanel = new ScorePanel(this.game, this.player, x, y);
+        this.game.add.existing(this.scorePanel);
     }
 }
