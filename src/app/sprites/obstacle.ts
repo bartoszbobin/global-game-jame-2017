@@ -2,6 +2,7 @@ import {ObstacleAsset} from '../data/models';
 import * as Phaser from 'phaser';
 import {getRandomInt} from '../utils';
 import {Boat} from './boat';
+import {WaterWave} from './water-wave';
 
 export class Obstacle extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };

@@ -40,7 +40,7 @@ export class LevelsManager {
                         .withFinishZone({ x: 1150, y: 470 })
                 },
                 {
-                    value: new LevelBuilder(1, game)
+                    value: new LevelBuilder(2, game)
                         .withBoats([
                             { x: 237, y: 288 },
                             { x: 983, y: 430 },
@@ -48,7 +48,7 @@ export class LevelsManager {
                         .withObstacles([
                             new StickObstacle(this.game, 983, 430),
                         ])
-                        .withFinishZone({ x: 1150, y: 470 })
+                        .withFinishZone({ x: 1150, y: 500 })
                 }
             ];
     }
