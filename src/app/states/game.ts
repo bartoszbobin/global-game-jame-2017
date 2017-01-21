@@ -139,13 +139,14 @@ export class GameState extends Phaser.State {
     }
 
     private addPlayerInfo() {
-        this.playerInfo = this.add.text(this.game.width - 200, 20, localStorage.getItem('userName'), {});
+        this.playerInfo = this.add.text(this.game.width - 200, 10, localStorage.getItem('userName'), {});
 
         this.playerInfo.font = 'Chewy';
+        this.playerInfo.fontSize = 40;       
     }
 
     private addScorePanel(x: number, y: number) {
-        this.scorePanel = new ScorePanel(this.game, this.player, x, y);
+        this.scorePanel = new ScorePanel(this.game, this.player, this.game.width - 90, 27);
         this.game.add.existing(this.scorePanel);
     }
 }
