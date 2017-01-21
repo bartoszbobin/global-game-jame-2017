@@ -22,7 +22,7 @@ export class SplashState extends Phaser.State {
         this.load.image('finish-zone', 'assets/images/mushroom2.png');
         this.load.image('rock', 'assets/images/rock.png');
         this.load.image('boat-paper', 'assets/images/boat-paper.png');
-        this.load.image('levels/level-01', 'assets/levels/level-01.png');
+        this.load.image('levels/level-1', 'assets/levels/level-01.png');
         this.load.image('stick', 'assets/images/stick.png');
         this.load.image('rock-obstacle', 'assets/images/rock-obstacle.png');
 

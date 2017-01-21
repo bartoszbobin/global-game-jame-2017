@@ -4,14 +4,16 @@ import {Player} from '../sprites/player';
 import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
-import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
 import {GameControll} from '../controlls/game-controll';
+import {LevelsManager} from '../levels/levels-manager';
+import {LevelBase} from '../levels/level-base';
 
 export class GameState extends Phaser.State {
     private gameControll: GameControll;
+    private levelsManager: LevelsManager;
 
     private mushroom: Mushroom;
     private player: Player;
@@ -19,7 +21,7 @@ export class GameState extends Phaser.State {
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockSprite: Rock;
-    private level: Level01;
+    private level: LevelBase;
     private playerInfo: Phaser.Text;
 
     private scorePanel: ScorePanel;
@@ -36,7 +38,9 @@ export class GameState extends Phaser.State {
     }
 
     create() {
-        this.addLevel();
+        this.levelsManager = new LevelsManager(this.game);
+        this.level = this.levelsManager.activeLevel;
+
         this.addPlayer();
         this.addMouseInfo();
         this.addRockSprite();
@@ -109,10 +113,6 @@ export class GameState extends Phaser.State {
         this.rockSprite = new Rock(this.game, this.player);
         this.game.add.existing(this.rockSprite);
         this.game.physics.enable(this.rockSprite, Phaser.Physics.ARCADE);
-    }
-
-    private addLevel() {
-        this.level = new Level01(this.game, this.gameControll);
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
