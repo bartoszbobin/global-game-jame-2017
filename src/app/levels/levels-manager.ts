@@ -6,7 +6,7 @@ export class LevelsManager {
     private levels = [] as [{ value: LevelBase }];
     private activeLevelIndex: number = 0;
 
-    get activeLevel(): LevelBase { return this.levels[this.activeLevelIndex].value;};
+    get activeLevel(): LevelBase { return this.levels[this.activeLevelIndex].value; };
 
     constructor(private game: Phaser.Game) {
         // define levels
@@ -26,15 +26,16 @@ export class LevelsManager {
                             new RockObstacle(this.game, 250, 440, 45),
                             new RockObstacle(this.game, 720, 500, 0),
                         ])
+                        .withFinishZone({ x: 1150, y: 470 })
                         .build()
                 }
             ];
-        
+
         this.activeLevelIndex = 0;
     }
 
     getNext(): LevelBase {
-        let nextLevelIndex = this.activeLevelIndex + 1; 
+        let nextLevelIndex = this.activeLevelIndex + 1;
         if (this.levels.length < nextLevelIndex) {
             // destroy actual
             this.levels[this.activeLevelIndex].value.destroy();

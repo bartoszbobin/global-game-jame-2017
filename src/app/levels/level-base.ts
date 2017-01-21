@@ -1,4 +1,5 @@
 import {Obstacle} from '../sprites/obstacle';
+import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/Boat';
 import {GameControll} from '../controlls/game-controll';
 
@@ -6,9 +7,10 @@ export class LevelBase extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body };
 
     constructor(
-        private levelNumber: number, 
+        private levelNumber: number,
         private boats: Boat[],
-        private obstacles: Obstacle[],
+        obstacles: Obstacle[],
+        finishZone: FinishZone,
         game: Phaser.Game
     ) {
         super(game, 0, 0, `levels/level-${levelNumber}`);
@@ -22,17 +24,24 @@ export class LevelBase extends Phaser.Sprite {
         this.game.physics.p2.enable(this, true);
 
         this.p2Body.clearShapes();
-        this.p2Body.loadPolygon('levelPhysics', 'level');
+        this.p2Body.loadPolygon(`levelPhysics-${levelNumber}`, `level-${this.levelNumber}-polygon`);
         this.p2Body.static = true;
         this.p2Body.x = 640;
         this.p2Body.y = 310;
 
-        this.addObstacles();
+        this.addObstacles(obstacles);
+        this.addFinishZone(finishZone);
     }
 
-    private addObstacles() {
+    private addObstacles(obstacles: Obstacle[]) {
         let group = this.game.add.group();
-        group.addMultiple(this.obstacles);
+        group.addMultiple(obstacles);
         this.game.add.existing(group);
+    }
+
+    private addFinishZone(finishZone: FinishZone) {
+        this.game.add.existing(finishZone);
+        this.game.physics.p2.enable(finishZone, true);
+        finishZone.setupBody();
     }
 }
