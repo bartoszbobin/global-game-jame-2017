@@ -13,7 +13,7 @@ import {PowerMeter} from '../sprites/power-meter';
 import Body = Phaser.Physics.P2.Body;
 
 export class GameState extends Phaser.State {
-    private levelsManager: LevelsManager;
+    levelsManager: LevelsManager;
     private mushroom: Mushroom;
     private player: Player;
     private mouseInfo: Phaser.Text;
@@ -28,7 +28,6 @@ export class GameState extends Phaser.State {
     init() {
         this.mousePointer = this.input.mousePointer;
         this.stage.backgroundColor = '#01A2A6';
-        this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
     preload() {

@@ -1,11 +1,13 @@
 import * as Phaser from 'phaser';
 import {centerGameObjects} from '../utils';
+import {LevelsManager} from '../levels/levels-manager';
 
 export class SplashState extends Phaser.State {
     loaderBg: Phaser.Sprite;
     loaderBar: Phaser.Sprite;
 
     init() {
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
     preload() {
