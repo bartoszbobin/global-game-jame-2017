@@ -19,13 +19,14 @@ export class GameState extends Phaser.State {
     private rockSprite: Rock;
     private finishZone: FinishZone;
     private level: Level01;
+    private playerInfo: Phaser.Text;
 
     private obstacles: Phaser.Group;
     private boats: Boat[] = [];
 
     init() {
         this.mousePointer = this.input.mousePointer;
-        // #01A2A6
+        this.stage.backgroundColor = '#01A2A6';
         this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
@@ -38,6 +39,7 @@ export class GameState extends Phaser.State {
         this.addMouseInfo();
         this.addRockSprite();
         this.addObstacles();
+        this.addPlayerInfo();
 
         this.addBoat(192, 128);
         this.addBoat(237, 288);
@@ -77,7 +79,6 @@ export class GameState extends Phaser.State {
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-
                 this.rockSprite.hit(rockHit)
                     .then(() => this.applyRockImpactOnItems(rockHit));
             }
@@ -141,6 +142,10 @@ export class GameState extends Phaser.State {
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
+        const bodies : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
+        if (bodies.length > 0) {
+            return;
+        }
         const rockMark: RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
@@ -155,5 +160,11 @@ export class GameState extends Phaser.State {
 
     private completeLevel() {
         alert('completed!');
+    }
+
+    private addPlayerInfo(){
+        this.playerInfo = this.add.text(this.game.width - 100, 20, localStorage.getItem('userName') , {});  
+
+        this.playerInfo.font = "Chewy"; 
     }
 }
