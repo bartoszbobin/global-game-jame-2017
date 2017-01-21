@@ -13,10 +13,10 @@ export class GameOverState extends Phaser.State {
 
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'gameOver-background');
-        this.add.button(550, 450, 'restart-button', this.startGame, this);
+        this.add.button(425, 450, 'restart-button', this.startGame, this);
     }
 
     startGame() {
-        this.game.state.start('Game');
+        this.game.state.start('Menu');
     }
 }
