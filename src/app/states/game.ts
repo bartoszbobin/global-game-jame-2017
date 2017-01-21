@@ -7,6 +7,7 @@ import {Rock} from '../sprites/rock';
 import {Level} from '../sprites/level';
 import {Boat} from '../sprites/boat';
 import {RockMark} from '../sprites/rock-mark';
+import {FinishZone} from '../sprites/finish';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -14,8 +15,9 @@ export class GameState extends Phaser.State {
     private mouseInfo: Phaser.Text;
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
-    private rockSprite : Rock;
+    private rockSprite: Rock;
     private level : Level;
+    private finishZone: FinishZone;
 
     private boats : Boat[] = [];
 
@@ -36,6 +38,8 @@ export class GameState extends Phaser.State {
         this.addBoat(192, 128);
         this.addBoat(237, 288);
         this.addBoat(577, 480);
+
+        this.addFinishZone();
     }
 
     render() {
@@ -110,6 +114,7 @@ export class GameState extends Phaser.State {
         this.game.add.existing(boat);
         this.game.physics.p2.enable(boat, true);
         boat.setupBody();
+
     }
 
     private addLevel() {
@@ -129,5 +134,16 @@ export class GameState extends Phaser.State {
         const rockMark : RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
+    }
+
+    private addFinishZone() {
+        const finishZone = new FinishZone(this.game, 400, 500);
+        this.game.add.existing(finishZone);
+        this.game.physics.p2.enable(finishZone, true);
+        finishZone.setupBody();
+    }
+
+    private completeLevel() {
+        alert('completed!');
     }
 }
