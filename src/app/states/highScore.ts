@@ -14,7 +14,7 @@ export class HighScoreState extends Phaser.State {
     create() {       
         this.add.tileSprite(0, 0, 1280, 620, 'highscore-background');
     
-        this.add.button(500, 450, 'restart-button', this.startGame, this);
+        this.add.button(200, 350, 'restart-button', this.startGame, this).scale.setTo(0.65);
         this.showHighScore();
     }
 
