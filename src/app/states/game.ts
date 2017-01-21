@@ -106,5 +106,7 @@ export class GameState extends Phaser.State {
         this.level.body.static = true;
         this.level.body.x = 640;
         this.level.body.y = 310;
+
+        this.mushroom = new Mushroom(this.game, 200, 100);
     }
 }
