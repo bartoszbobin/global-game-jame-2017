@@ -18,9 +18,15 @@ export class Boat extends Phaser.Sprite {
     }
 
     setupBody() {
-        this.getP2Body().mass = 40;
-        this.getP2Body().clearShapes();
-        this.getP2Body().loadPolygon('boatPhysics', 'boat-paper');
+        this.getP2Body().mass = 4000;
+        this.getP2Body().fixedRotation = true;
+        this.getP2Body().angularDamping = 0.15;
+        this.getP2Body().angularForce = 0.15;
+        this.getP2Body().velocity.x = 0.5;
+        this.getP2Body().velocity.y = 0.1;
+        this.getP2Body().damping = .15;
+
+        this.getP2Body().setCircle(12);
     }
 
     getP2Body() : Phaser.Physics.P2.Body {
