@@ -1,6 +1,6 @@
 import {LevelBuilder} from './levels-builder';
 import {LevelBase} from './level-base';
-import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle} from "../sprites/obstacle";
+import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from "../sprites/obstacle";
 
 export class LevelsManager {
     private levels = [] as [{ value: LevelBase }];
@@ -17,7 +17,7 @@ export class LevelsManager {
                         .withBoats([
                             { x: 192, y: 128 },
                             { x: 237, y: 288 },
-                            { x: 500, y: 340 },
+                            { x: 400, y: 340 },
                         ])
                         .withObstacles([
                             new StickObstacle(this.game, 300, 300),
@@ -25,6 +25,9 @@ export class LevelsManager {
                             new WoodObstacle(this.game, 645, 280, 45),
                             new RockObstacle(this.game, 250, 440, 45),
                             new RockObstacle(this.game, 720, 500, 0),
+                            new NavalMineObstacle(this.game, 530, 240, 0),
+                            new NavalMineObstacle(this.game, 510, 353, 0),
+                            new NavalMineObstacle(this.game, 588, 314, 0)
                         ])
                         .withFinishZone({ x: 1150, y: 470 })
                         .build()
