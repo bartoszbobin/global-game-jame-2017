@@ -18,6 +18,7 @@ export class GameControll {
 
     private completeLevel(body) {
         if (body.sprite.key === FINISH_ZONE_KEY) {
+            this.game.state.start('HighScore');
             console.log('level completed');
         }
     }
