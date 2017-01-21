@@ -7,7 +7,7 @@ import {Rock} from '../sprites/rock';
 import {Level} from '../sprites/level';
 import {RockMark} from '../sprites/rock-mark';
 import {Boat} from "../sprites/boat";
-import {Obstacle} from "../sprites/obstacle";
+import {StickObstacle, RockObstacle} from "../sprites/obstacle";
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -110,9 +110,11 @@ export class GameState extends Phaser.State {
     private addObstacles() {
         this.obstacles = this.add.group();
         let obstacles = [
-            new Obstacle(this.game, 'stick', 300, 300),
-            new Obstacle(this.game, 'stick', 390, 100, 90),
-            new Obstacle(this.game, 'stick', 645, 280, 45)
+            new StickObstacle(this.game, 300, 300),
+            new StickObstacle(this.game, 390, 120, 90),
+            new StickObstacle(this.game, 645, 280, 45),
+            new RockObstacle(this.game, 250, 440, 45),
+            new RockObstacle(this.game, 720, 500, 0)
         ];
         this.obstacles.addMultiple(obstacles);
 
