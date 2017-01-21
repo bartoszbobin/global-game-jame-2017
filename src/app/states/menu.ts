@@ -14,7 +14,7 @@ export class MenuState extends Phaser.State {
         this.load.image('menu-start-button', './assets/images/menu-start-button.png');
         this.load.image('menu-background', './assets/images/menu-background.png');
 
-        let letterFont = '64px Arial';
+        let letterFont = '64px Chewy';
         let letterStyle = '#ffffff';
 
         this.letter1 = this.game.make.bitmapData(100, 100);

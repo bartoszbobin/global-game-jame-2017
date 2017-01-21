@@ -14,7 +14,7 @@ export class BootState extends Phaser.State {
     preload() {
         WebFont.load({
             google: {
-                families: ['Nunito']
+                families: ['Nunito', 'Chewy']
             },
             active: this.fontsLoaded
         });
