@@ -30,13 +30,13 @@ export class MenuState extends Phaser.State {
         this.letter3.context.font = letterFont;
         this.letter3.context.fillStyle = letterStyle;
 
-        this.input.keyboard.addCallbacks(this, null, null, this.addLetter);        
+        this.input.keyboard.addCallbacks(this, null, null, this.addLetter);
     }
 
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'menu-background');
         this.startButton = this.add.button(425, 425, 'menu-start-button', this.startGame, this);
-        this.startButton.inputEnabled = false;   
+        this.startButton.inputEnabled = false;
     }
 
     startGame() {
@@ -44,7 +44,7 @@ export class MenuState extends Phaser.State {
         this.game.state.start('Game');
     }
 
-    addLetter(char) {
+    addLetter(char, keyInfo) {
         if (this.userName.length === 0) {
             this.letter1.context.fillText(char.toUpperCase(), 55, 55);
             this.letter1.addToWorld(500, 300);
@@ -58,6 +58,10 @@ export class MenuState extends Phaser.State {
             this.letter3.addToWorld(640, 300);
             this.userName += char;
             this.startButton.inputEnabled = true;
+        }
+
+        if (this.userName.length === 3 && keyInfo.code === 'Enter') {
+            this.startGame();
         }
     }
 }
