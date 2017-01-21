@@ -102,7 +102,7 @@ export class GameState extends Phaser.State {
         this.game.physics.p2.enable(this.level, true); // change second param to false to disable debug mode
 
         this.level.body.clearShapes();
-        this.level.body.loadPolygon("levelPhysics", "level");
+        this.level.body.loadPolygon('levelPhysics', 'level');
         this.level.body.static = true;
         this.level.body.x = 640;
         this.level.body.y = 310;

@@ -3,12 +3,12 @@ import * as Phaser from 'phaser';
 export class GameOverState extends Phaser.State {
     private mouseInfo: Phaser.Text;
 
-    init() {          
+    init() {
     }
 
     preload() {
         this.load.image('restart-button', './assets/images/restart-button.png');
-        this.load.image('gameOver-background', './assets/images/gameOver-background.png');      
+        this.load.image('gameOver-background', './assets/images/gameOver-background.png');
     }
 
     create() {
@@ -16,7 +16,7 @@ export class GameOverState extends Phaser.State {
         this.add.button(550, 450, 'restart-button', this.startGame, this);
     }
 
-    startGame(){
-        this.game.state.start('Game'); 
+    startGame() {
+        this.game.state.start('Game');
     }
 }

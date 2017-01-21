@@ -2,12 +2,12 @@ import * as Phaser from 'phaser';
 
 export class MenuState extends Phaser.State {
 
-    init() {          
+    init() {
     }
 
     preload() {
         this.load.image('menu-start-button', './assets/images/menu-start-button.png');
-        this.load.image('menu-background', './assets/images/menu-background.png');      
+        this.load.image('menu-background', './assets/images/menu-background.png');
     }
 
     create() {
@@ -15,8 +15,8 @@ export class MenuState extends Phaser.State {
         this.add.button(400, 250, 'menu-start-button', this.startGame, this);
     }
 
-    startGame(){
-        this.game.state.start('Game'); 
+    startGame() {
+        this.game.state.start('Game');
     }
 }
 
