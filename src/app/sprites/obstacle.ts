@@ -3,7 +3,6 @@ import * as Phaser from 'phaser';
 import {getRandomInt} from '../utils';
 
 export class Obstacle extends Phaser.Sprite {
-    private get doesDamage(): number { return 10; }
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
@@ -20,9 +19,20 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.static = true;
         this.p2Body.clearShapes();
         this.p2Body.angle = this.rotationInArcs;
+        this.loadPolygon();
+    }
 
+    protected loadPolygon() : void {
         // by convention
-        this.p2Body.loadPolygon(`${this.asset}Physics`, this.asset);
+        try {
+            this.p2Body.loadPolygon(`${this.asset}Physics`, this.asset);
+        } catch (excetion) {
+            throw Error(`Missing Physics for asses: ${this.asset}`);
+        }
+    }
+
+    public getDamage() : number {
+        return 5;
     }
 }
 
@@ -48,6 +58,36 @@ export class WoodObstacle extends Obstacle {
 export class RockObstacle extends Obstacle {
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
         super(game, 'rock-obstacle', positionX, positionY, rotationInArcs);
+    }
+}
+
+export class NavalMineObstacle extends Obstacle {
+    private static ROTATION_DEG_FACTOR = Phaser.Math.degToRad(0.15);
+    private static MAX_ROTATE_ANGLE = 25;
+
+    private rotationDirection = -1;
+
+    constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
+        super(game, 'naval-mine', positionX, positionY, rotationInArcs);
+        this.scale.setTo(.2);
+    }
+
+    public update() {
+        const currentRotateAngle = Math.abs(Phaser.Math.radToDeg(this.p2Body.rotation));
+        if (currentRotateAngle > NavalMineObstacle.MAX_ROTATE_ANGLE) {
+            this.rotationDirection *= -1;
+        }
+
+        this.p2Body.rotation -= NavalMineObstacle.ROTATION_DEG_FACTOR * this.rotationDirection;
+    }
+
+    public getDamage() : number {
+        return 25;
+    }
+
+    protected loadPolygon() : void {
+        this.p2Body.setCircle(16, 0, 0);
+        this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
     }
 }
 
