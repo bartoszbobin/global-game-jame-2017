@@ -4,7 +4,7 @@ import {getRandomInt} from '../utils';
 
 export class Obstacle extends Phaser.Sprite {
     private get doesDamage(): number { return 10; }
-    protected get p2Body():Phaser.Physics.P2.Body { return this.body };
+    protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
         super(game, positionX, positionY, asset);
@@ -52,7 +52,7 @@ export class RockObstacle extends Obstacle {
 }
 
 export class RocksGroupObstacle extends Phaser.Sprite {
-    protected get p2Body():Phaser.Physics.P2.Body { return this.body };
+    protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
 
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0, rocksNumber: number = 1) {
         super(game, positionX, positionY);
@@ -68,7 +68,7 @@ export class RocksGroupObstacle extends Phaser.Sprite {
         const radius = 50;
 
 
-        for(let i = 0; i < rocksNumber; i++) {
+        for (let i = 0; i < rocksNumber; i++) {
             const angle = getRandomInt(i * rotationStep, (i + 1) * rotationStep) * (Math.PI / 180);
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
