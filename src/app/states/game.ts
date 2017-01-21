@@ -133,8 +133,8 @@ export class GameState extends Phaser.State {
 
         this.game.add.existing(boat);
         this.game.physics.p2.enable(boat, true);
+        boat.body.onBeginContact.add(this.completeLevel, this);
         boat.setupBody();
-
     }
 
     private addLevel() {
@@ -158,13 +158,14 @@ export class GameState extends Phaser.State {
         finishZone.setupBody();
     }
 
-    private completeLevel() {
-        alert('completed!');
+    private completeLevel(body) {
+        if (body.sprite.key === 'finish-zone') {
+            console.log("level completed");
+        }
     }
 
     private addPlayerInfo(){
         this.playerInfo = this.add.text(this.game.width - 100, 20, localStorage.getItem('userName') , {});  
-
         this.playerInfo.font = "Chewy"; 
     }
 }

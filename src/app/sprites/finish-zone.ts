@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 
 export class FinishZone extends Phaser.Sprite {
     constructor(game: Phaser.Game, x: number, y: number) {
-        super(game, x, y, 'mushroom');
+        super(game, x, y, 'finish-zone');
         this.game = game;
         this.anchor.setTo(0.5);
     }
