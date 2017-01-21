@@ -9,10 +9,23 @@ export class FinishZone extends Phaser.Sprite {
 
     setupBody() {
         this.getP2Body().static = true;
+        this.body.onBeginContact.add(this.handleContact, this.game.state);
     }
 
     getP2Body() : Phaser.Physics.P2.Body {
         return this.body;
+    }
+
+    handleContact(body) {
+        console.log('FinishZone - handleContact');
+        if (body.sprite.key === 'boat-paper') {
+            let highScore = JSON.parse(localStorage.getItem('highScore'));
+            highScore.push({userName: localStorage.getItem('userName'), score: 5});
+            localStorage.setItem('highScore', JSON.stringify(highScore));
+
+            this.game.state.start('HighScore');
+            console.log('level completed');
+        }
     }
 
 }

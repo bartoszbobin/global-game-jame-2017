@@ -1,9 +1,11 @@
 import {ObstacleAsset} from '../data/models';
 import * as Phaser from 'phaser';
 import {getRandomInt} from '../utils';
+import {Boat} from "./boat";
 
 export class Obstacle extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
+    protected damagePower : number = 5;
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
         super(game, positionX, positionY, asset);
@@ -11,8 +13,9 @@ export class Obstacle extends Phaser.Sprite {
         this.game = game;
         this.anchor.setTo(0.5, 0.5);
 
-        this.game.physics.p2.enable(this);
+        this.game.physics.p2.enable(this, true);
         this.setupBody();
+        this.body.onBeginContact.add((body) => this.handleContact(body), this.game.state);
     }
 
     setupBody() {
@@ -20,6 +23,12 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.clearShapes();
         this.p2Body.angle = this.rotationInArcs;
         this.loadPolygon();
+    }
+
+    protected handleContact(body) {
+        if (body.sprite.key === 'boat-paper') {
+            body.sprite.addDamage(this.getDamagePower());
+        }
     }
 
     protected loadPolygon() : void {
@@ -31,9 +40,10 @@ export class Obstacle extends Phaser.Sprite {
         }
     }
 
-    public getDamage() : number {
-        return 5;
+    protected getDamagePower() : number {
+        return this.damagePower;
     }
+
 }
 
 export class StickObstacle extends Obstacle {
@@ -64,12 +74,12 @@ export class RockObstacle extends Obstacle {
 export class NavalMineObstacle extends Obstacle {
     private static ROTATION_DEG_FACTOR = Phaser.Math.degToRad(0.15);
     private static MAX_ROTATE_ANGLE = 25;
-
+    private polygonRadius = 16;
     private rotationDirection = -1;
 
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
         super(game, 'naval-mine', positionX, positionY, rotationInArcs);
-        this.scale.setTo(.2);
+        this.damagePower = 25;
     }
 
     public update() {
@@ -81,13 +91,42 @@ export class NavalMineObstacle extends Obstacle {
         this.p2Body.rotation -= NavalMineObstacle.ROTATION_DEG_FACTOR * this.rotationDirection;
     }
 
-    public getDamage() : number {
-        return 25;
+    setupBody(): void {
+        this.scale.setTo(.2);
+        super.setupBody();
+    }
+
+    protected handleContact(body) {
+        if (body.sprite.key === 'boat-paper') {
+            body.sprite.addDamage(this.getDamagePower());
+            this.blowUp();
+        }
     }
 
     protected loadPolygon() : void {
-        this.p2Body.setCircle(16, 0, 0);
+        this.p2Body.setCircle(this.polygonRadius, 0, 0);
+        this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
+    }
+
+    private blowUp() {
+        this.damagePower = 0;
+
+        this.game.add.tween(this)
+            .to({}, 10, () => {
+                if (!this || !this.p2Body) {
+                    return;
+                }
+                if (this.polygonRadius >= 40) {
+                    this.p2Body.clearShapes();
+                } else {
+                    this.p2Body.setCircle(this.polygonRadius += 0.05);
+                }
+            })
+            .repeat(10)
+            .start().onComplete.addOnce(() => {
+                this.destroy();
+            });
     }
 }
 

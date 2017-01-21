@@ -7,14 +7,12 @@ import {Rock} from '../sprites/rock';
 import {RockMark} from '../sprites/rock-mark';
 import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
-import {GameControll} from '../controlls/game-controll';
 import {LevelsManager} from '../levels/levels-manager';
 import {LevelBase} from '../levels/level-base';
 import {PowerMeter} from '../sprites/power-meter';
 import Body = Phaser.Physics.P2.Body;
 
 export class GameState extends Phaser.State {
-    private gameControll: GameControll;
     private levelsManager: LevelsManager;
     private mushroom: Mushroom;
     private player: Player;
@@ -31,8 +29,6 @@ export class GameState extends Phaser.State {
         this.mousePointer = this.input.mousePointer;
         this.stage.backgroundColor = '#01A2A6';
         this.game.physics.startSystem(Phaser.Physics.P2JS);
-
-        this.gameControll = new GameControll(this.game);
     }
 
     preload() {

@@ -65,6 +65,15 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().damping = .15;
 
         this.getP2Body().setCircle(12);
+
+    }
+
+    handleContact(body) {
+        console.log('contact', body);
+        if (body.sprite.key === 'finish-zone') {
+            console.log('level completed');
+        }
+        this.game.add.graphics(1, 2);
     }
 
     getP2Body() : Phaser.Physics.P2.Body {
