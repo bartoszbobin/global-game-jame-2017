@@ -37,7 +37,7 @@ export class LevelsManager {
                             new NavalMineObstacle(this.game, 588, 314, 0),
                             new NavalMineObstacle(this.game, 500, 210, 0)
                         ])
-                        .withFinishZone({ x: 400, y: 200 })
+                        .withFinishZone({ x: 1150, y: 470 })
                 },
                 {
                     value: new LevelBuilder(1, game)
@@ -48,7 +48,7 @@ export class LevelsManager {
                         .withObstacles([
                             new StickObstacle(this.game, 983, 430),
                         ])
-                        .withFinishZone({ x: 400, y: 200 })
+                        .withFinishZone({ x: 1150, y: 470 })
                 }
             ];
     }
