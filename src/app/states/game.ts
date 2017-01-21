@@ -9,10 +9,10 @@ import {RockMark} from '../sprites/rock-mark';
 import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
 import {GameControll} from '../controlls/game-controll';
+import {PowerMeter} from '../sprites/power-meter';
 
 export class GameState extends Phaser.State {
     private gameControll: GameControll;
-
     private mushroom: Mushroom;
     private player: Player;
     private mouseInfo: Phaser.Text;
@@ -21,7 +21,7 @@ export class GameState extends Phaser.State {
     private rockSprite: Rock;
     private level: Level01;
     private playerInfo: Phaser.Text;
-
+    private powerMeter: PowerMeter
     private scorePanel: ScorePanel;
 
     init() {
@@ -36,6 +36,7 @@ export class GameState extends Phaser.State {
     }
 
     create() {
+        this.addPowerMeter();
         this.addLevel();
         this.addPlayer();
         this.addMouseInfo();
@@ -87,7 +88,15 @@ export class GameState extends Phaser.State {
         this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
         if (this.hitPower) {
             this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+            }
+        } else {
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+            }
         }
+
     }
 
     private addPlayer() {
@@ -128,13 +137,17 @@ export class GameState extends Phaser.State {
 
     private addPlayerInfo() {
         this.playerInfo = this.add.text(this.game.width - 200, 10, localStorage.getItem('userName'), {});
-
         this.playerInfo.font = 'Chewy';
-        this.playerInfo.fontSize = 40;       
+        this.playerInfo.fontSize = 40;
     }
 
     private addScorePanel(x: number, y: number) {
         this.scorePanel = new ScorePanel(this.game, this.player, this.game.width - 90, 27);
         this.game.add.existing(this.scorePanel);
+    }
+
+    private addPowerMeter() {
+        this.powerMeter = new PowerMeter(this.game);
+        this.game.add.existing(this.powerMeter);
     }
 }
