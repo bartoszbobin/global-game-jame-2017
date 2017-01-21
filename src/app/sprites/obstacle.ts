@@ -5,7 +5,7 @@ import {Boat} from "./boat";
 
 export class Obstacle extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
-    protected damagePower : number = 5;
+    protected damagePower: number = 5;
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
         super(game, positionX, positionY, asset);
@@ -31,7 +31,7 @@ export class Obstacle extends Phaser.Sprite {
         }
     }
 
-    protected loadPolygon() : void {
+    protected loadPolygon(): void {
         // by convention
         try {
             this.p2Body.loadPolygon(`${this.asset}Physics`, this.asset);
@@ -40,10 +40,14 @@ export class Obstacle extends Phaser.Sprite {
         }
     }
 
-    protected getDamagePower() : number {
+    protected getDamagePower(): number {
         return this.damagePower;
     }
 
+    destroy() {
+        if (this.p2Body) this.p2Body.clearShapes();
+        super.destroy(true);
+    }
 }
 
 export class StickObstacle extends Obstacle {
@@ -103,7 +107,7 @@ export class NavalMineObstacle extends Obstacle {
         }
     }
 
-    protected loadPolygon() : void {
+    protected loadPolygon(): void {
         this.p2Body.setCircle(this.polygonRadius, 0, 0);
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));

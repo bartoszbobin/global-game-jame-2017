@@ -8,7 +8,7 @@ export class LevelBase extends Phaser.Sprite {
     constructor(
         private levelNumber: number,
         public boats: Boat[],
-        obstacles: Obstacle[],
+        private obstacles: Obstacle[],
         finishZone: FinishZone,
         game: Phaser.Game
     ) {
@@ -30,6 +30,11 @@ export class LevelBase extends Phaser.Sprite {
 
         this.addObstacles(obstacles);
         this.addFinishZone(finishZone);
+    }
+
+    destroy() {
+        super.destroy(true);
+        this.obstacles.forEach(o => o.destroy());
     }
 
     private addObstacles(obstacles: Obstacle[]) {
