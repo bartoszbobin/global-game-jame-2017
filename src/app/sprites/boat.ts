@@ -1,8 +1,4 @@
 import * as Phaser from 'phaser';
-import {Player} from './player';
-import {RockHit} from '../data/rock-hit';
-import {Promise} from 'es6-promise';
-
 
 export class Boat extends Phaser.Sprite {
     health : number = 100;
@@ -22,12 +18,12 @@ export class Boat extends Phaser.Sprite {
     }
 
     setupBody() {
-        this.getP2Body().mass = 1;
+        this.getP2Body().mass = 40;
         this.getP2Body().clearShapes();
         this.getP2Body().loadPolygon('boatPhysics', 'boat-paper');
     }
 
-    getP2Body() : Phaser.Physics.P2.Body { .
+    getP2Body() : Phaser.Physics.P2.Body {
         return this.body;
     }
 

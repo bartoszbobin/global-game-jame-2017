@@ -6,6 +6,7 @@ import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
 import {Level} from '../sprites/level';
 import {Boat} from '../sprites/boat';
+import {RockMark} from '../sprites/rock-mark';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -13,7 +14,7 @@ export class GameState extends Phaser.State {
     private mouseInfo: Phaser.Text;
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
-    private rockObject : Rock;
+    private rockSprite : Rock;
     private level : Level;
 
     private boats : Boat[] = [];
@@ -30,7 +31,7 @@ export class GameState extends Phaser.State {
         this.addLevel();
         this.addPlayer();
         this.addMouseInfo();
-        this.addRock();
+        this.addRockSprite();
 
         this.addBoat(192, 128);
         this.addBoat(237, 288);
@@ -51,11 +52,11 @@ export class GameState extends Phaser.State {
 
         if (this.mousePointer.isDown) {
             if (!this.hitPower) {
-                if (this.rockObject.isReadyToHit()) {
+                if (this.rockSprite.isReadyToHit()) {
                    this.hitPower = new HitPower();
                 }
             } else {
-                if (this.rockObject.isReadyToHit()) {
+                if (this.rockSprite.isReadyToHit()) {
                     if (this.hitPower.waitingTooLong()) {
                         this.hitPower = null;
                     }
@@ -68,12 +69,9 @@ export class GameState extends Phaser.State {
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-                this.rockObject.hit(rockHit)
-                    .then(() => {
-                        // TODO count hits for player
-                        this.boats[0].getP2Body().applyForce([12,12], rockHit.toPoint.x, rockHit.toPoint.y);
-                        var bodies = this.physics.p2.hitTest(rockHit.toPoint, this.boats);
-                    });
+
+                this.rockSprite.hit(rockHit)
+                    .then(() => this.applyRockImpactOnItems(rockHit));
             }
             this.hitPower = null;
         }
@@ -99,10 +97,10 @@ export class GameState extends Phaser.State {
         this.mouseInfo.anchor.setTo(0);
     }
 
-    private addRock() {
-        this.rockObject = new Rock(this.game, this.player);
-        this.game.add.existing(this.rockObject);
-        this.game.physics.enable(this.rockObject, Phaser.Physics.ARCADE);
+    private addRockSprite() {
+        this.rockSprite = new Rock(this.game, this.player);
+        this.game.add.existing(this.rockSprite);
+        this.game.physics.enable(this.rockSprite, Phaser.Physics.ARCADE);
     }
 
     private addBoat(x : number, y: number) {
@@ -125,5 +123,11 @@ export class GameState extends Phaser.State {
         this.level.body.static = true;
         this.level.body.x = 640;
         this.level.body.y = 310;
+    }
+
+    private applyRockImpactOnItems(rockHit : RockHit) {
+        const rockMark : RockMark = new RockMark(this.game);
+        this.game.add.existing(rockMark);
+        rockMark.hit(rockHit);
     }
 }
