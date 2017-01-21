@@ -1,6 +1,11 @@
 import * as Phaser from 'phaser';
 import * as WebFont from 'webfontloader';
 
+type UserScore  = {
+    userName: string,
+    score: number;
+}
+
 export class BootState extends Phaser.State {
     stage: Phaser.Stage;
     fontsReady: boolean;
@@ -9,6 +14,9 @@ export class BootState extends Phaser.State {
         this.stage.backgroundColor = '#EDEEC9';
         this.fontsReady = false;
         this.fontsLoaded = this.fontsLoaded.bind(this);
+
+        let highScore = [] as UserScore[];
+        localStorage.setItem('highScore', JSON.stringify(highScore));
     }
 
     preload() {
