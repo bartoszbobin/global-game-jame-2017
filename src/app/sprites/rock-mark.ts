@@ -39,7 +39,7 @@ export class RockMark extends Phaser.Sprite {
     }
 
     private drawCircle() : void {
-        let factor = (this.power / (.7 * HitPower.MAX_HOLD_TIME / 10));
+        let factor = (this.power / (.9 * HitPower.MAX_HOLD_TIME / 10));
         this.getP2Body().setCircle(this.radius++ * factor);
     }
 }

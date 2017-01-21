@@ -77,7 +77,6 @@ export class GameState extends Phaser.State {
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-
                 this.rockSprite.hit(rockHit)
                     .then(() => this.applyRockImpactOnItems(rockHit));
             }
@@ -141,6 +140,10 @@ export class GameState extends Phaser.State {
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
+        const bodies : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
+        if (bodies.length > 0) {
+            return;
+        }
         const rockMark: RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
