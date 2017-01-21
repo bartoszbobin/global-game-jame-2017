@@ -8,7 +8,7 @@ import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
-import {StickObstacle, RockObstacle} from '../sprites/obstacle';
+import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle} from "../sprites/obstacle";
 import {ScorePanel} from '../sprites/score-panel';
 
 const FINISH_ZONE_KEY = 'finish-zone';
@@ -127,12 +127,12 @@ export class GameState extends Phaser.State {
         let obstacles = [
             new StickObstacle(this.game, 300, 300),
             new StickObstacle(this.game, 390, 120, 90),
-            new StickObstacle(this.game, 645, 280, 45),
+            new WoodObstacle(this.game, 645, 280, 45),
             new RockObstacle(this.game, 250, 440, 45),
-            new RockObstacle(this.game, 720, 500, 0)
+            new RockObstacle(this.game, 720, 500, 0),
+            new RocksGroupObstacle(this.game, 300, 400, 0, 10),
         ];
         this.obstacles.addMultiple(obstacles);
-
         this.game.add.existing(this.obstacles);
     }
 
