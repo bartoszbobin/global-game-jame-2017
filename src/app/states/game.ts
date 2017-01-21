@@ -5,7 +5,7 @@ import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
 import {Level} from '../sprites/level';
-import {Boat} from "../sprites/boat";
+import {Boat} from '../sprites/boat';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -111,13 +111,12 @@ export class GameState extends Phaser.State {
 
         this.game.add.existing(boat);
         this.game.physics.p2.enable(boat, true);
-
         boat.setupBody();
-        // TODO add polygon
     }
 
     private addLevel() {
         this.level =  new Level(this.game);
+
         this.game.add.existing(this.level);
         this.game.physics.p2.enable(this.level, true); // change second param to false to disable debug mode
 
@@ -126,7 +125,5 @@ export class GameState extends Phaser.State {
         this.level.body.static = true;
         this.level.body.x = 640;
         this.level.body.y = 310;
-
-        this.mushroom = new Mushroom(this.game, 200, 100);
     }
 }

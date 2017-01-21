@@ -11,8 +11,6 @@ export class Boat extends Phaser.Sprite {
 
         this.game = game;
         this.anchor.setTo(0.5, 0.5);
-        this.scale.set(.25, .25);
-
     }
 
     update() {
@@ -20,6 +18,8 @@ export class Boat extends Phaser.Sprite {
 
     setupBody() {
         this.getP2Body().mass = 1;
+        this.getP2Body().clearShapes();
+        this.getP2Body().loadPolygon('boatPhysics', 'boat-paper');
     }
 
     public getP2Body() : Phaser.Physics.P2.Body {
