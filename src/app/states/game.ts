@@ -7,8 +7,8 @@ import {Rock} from '../sprites/rock';
 import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {FinishZone} from '../sprites/finish-zone';
-import {Boat} from "../sprites/boat";
-import {StickObstacle, RockObstacle} from "../sprites/obstacle";
+import {Boat} from '../sprites/boat';
+import {StickObstacle, RockObstacle} from '../sprites/obstacle';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -25,7 +25,7 @@ export class GameState extends Phaser.State {
 
     init() {
         this.mousePointer = this.input.mousePointer;
-        // #01A2A6
+        this.stage.backgroundColor = '#01A2A6';
         this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
@@ -77,7 +77,6 @@ export class GameState extends Phaser.State {
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
-
                 this.rockSprite.hit(rockHit)
                     .then(() => this.applyRockImpactOnItems(rockHit));
             }
@@ -141,6 +140,10 @@ export class GameState extends Phaser.State {
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
+        const bodies : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
+        if (bodies.length > 0) {
+            return;
+        }
         const rockMark: RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
