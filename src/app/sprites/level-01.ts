@@ -15,7 +15,7 @@ export class Level01 extends Phaser.Sprite {
         this.scale.setTo(0.5);
 
         this.game.add.existing(this);
-        this.game.physics.p2.enable(this, true);
+        this.game.physics.p2.enable(this, false);
 
         this.getP2Body().clearShapes();
         this.getP2Body().loadPolygon('levelPhysics', 'level-01-polygon');
