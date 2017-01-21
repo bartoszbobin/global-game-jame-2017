@@ -27,7 +27,7 @@ export class HighScoreState extends Phaser.State {
         let scoreBoardText = '';
 
         for (let scoreItem of scoreBoard) {
-            scoreBoardText += scoreItem.userName + '          ' + scoreItem.score + '\n' ;          
+            scoreBoardText += scoreItem.userName + '          ' + scoreItem.score + '\n' ;         
         }
 
         this.highScore = this.add.text(750, 50, scoreBoardText, {});
