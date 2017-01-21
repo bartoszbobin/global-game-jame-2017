@@ -1,5 +1,5 @@
 import {Obstacle} from '../sprites/obstacle';
-import {Boat} from '../sprites/Boat';
+import {Boat} from '../sprites/boat';
 import {FinishZone} from '../sprites/finish-zone';
 import {LevelBase} from './level-base';
 
