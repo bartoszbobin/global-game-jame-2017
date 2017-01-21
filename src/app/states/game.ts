@@ -162,7 +162,7 @@ export class GameState extends Phaser.State {
     }
 
     private addFinishZone() {
-        const finishZone = new FinishZone(this.game, 400, 500);
+        const finishZone = new FinishZone(this.game, 1150, 465);
         this.game.add.existing(finishZone);
         this.game.physics.p2.enable(finishZone, true);
         finishZone.setupBody();
