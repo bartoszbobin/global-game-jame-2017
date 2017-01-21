@@ -6,6 +6,7 @@ export class MenuState extends Phaser.State {
     private letter2;
     private letter3;
     private userName = '';
+    private startButton;
 
     init() {
     }
@@ -15,7 +16,7 @@ export class MenuState extends Phaser.State {
         this.load.image('menu-background', './assets/images/menu-background.png');
 
         let letterFont = '64px Chewy';
-        let letterStyle = '#ffffff';
+        let letterStyle = '#000000';
 
         this.letter1 = this.game.make.bitmapData(100, 100);
         this.letter1.context.font = letterFont;
@@ -34,7 +35,8 @@ export class MenuState extends Phaser.State {
 
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'menu-background');
-        this.add.button(400, 250, 'menu-start-button', this.startGame, this);
+        this.startButton = this.add.button(425, 425, 'menu-start-button', this.startGame, this);
+        this.startButton.inputEnabled = false;
     }
 
     startGame() {
@@ -45,16 +47,17 @@ export class MenuState extends Phaser.State {
     addLetter(char) {
         if (this.userName.length === 0) {
             this.letter1.context.fillText(char, 55, 55);
-            this.letter1.addToWorld(400, 400);
+            this.letter1.addToWorld(500, 300);
             this.userName += char;
         } else if (this.userName.length === 1) {
             this.letter2.context.fillText(char, 55, 55);
-            this.letter2.addToWorld(450, 400);
+            this.letter2.addToWorld(570, 300);
             this.userName += char;
         } else if (this.userName.length === 2) {
             this.letter3.context.fillText(char, 55, 55);
-            this.letter3.addToWorld(500, 400);
+            this.letter3.addToWorld(640, 300);
             this.userName += char;
+            this.startButton.inputEnabled = true;
         }
     }
 }
