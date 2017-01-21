@@ -17,6 +17,7 @@ export class GameState extends Phaser.State {
 
     init() {
         this.mousePointer = this.input.mousePointer;
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
     preload() {
@@ -98,6 +99,12 @@ export class GameState extends Phaser.State {
     private addLevel() {
         this.level =  new Level(this.game);
         this.game.add.existing(this.level);
-        this.game.physics.enable(this.level, Phaser.Physics.ARCADE);
+        this.game.physics.p2.enable(this.level, true); // change second param to false to disable debug mode
+
+        this.level.body.clearShapes();
+        this.level.body.loadPolygon("levelPhysics", "level");
+        this.level.body.static = true;
+        this.level.body.x = 640;
+        this.level.body.y = 310;
     }
 }

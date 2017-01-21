@@ -28,7 +28,6 @@ export class BootState extends Phaser.State {
 
         this.load.image('loaderBg', './assets/images/loader-bg.png');
         this.load.image('loaderBg', './assets/images/loader-bg.png');
-        this.load.image('level', './assets/images/level.png');
     }
 
     render() {
