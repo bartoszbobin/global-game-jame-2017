@@ -6,7 +6,6 @@ import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
 import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
-import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
 import {GameControll} from '../controlls/game-controll';
@@ -20,7 +19,6 @@ export class GameState extends Phaser.State {
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockSprite: Rock;
-    private finishZone: FinishZone;
     private level: Level01;
     private playerInfo: Phaser.Text;
 
@@ -43,9 +41,6 @@ export class GameState extends Phaser.State {
         this.addMouseInfo();
         this.addRockSprite();
         this.addPlayerInfo();
-
-        this.addFinishZone();
-
         this.addScorePanel(500, 10);
     }
 
@@ -129,13 +124,6 @@ export class GameState extends Phaser.State {
         const rockMark: RockMark = new RockMark(this.game);
         this.game.add.existing(rockMark);
         rockMark.hit(rockHit);
-    }
-
-    private addFinishZone() {
-        const finishZone = new FinishZone(this.game, 1150, 465);
-        this.game.add.existing(finishZone);
-        this.game.physics.p2.enable(finishZone, true);
-        finishZone.setupBody();
     }
 
     private addPlayerInfo() {

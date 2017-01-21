@@ -1,11 +1,13 @@
 import * as Phaser from 'phaser';
 import {Boat} from '../sprites/boat';
 import {GameControll} from '../controlls/game-controll';
+import {FinishZone} from '../sprites/finish-zone';
 import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle} from "../sprites/obstacle";
 
 export class Level01 extends Phaser.Sprite {
     private obstacles: Phaser.Group;
     private boats: Boat[] = [];
+    private finishZone: FinishZone;
 
     constructor(game: Phaser.Game, private gameControll: GameControll) {
         super(game, 0, 0, 'levels/level-01');
@@ -25,6 +27,7 @@ export class Level01 extends Phaser.Sprite {
 
         this.addObstacles();
         this.addBoats();
+        this.addFinishZone(1150, 470);
     }
 
     update() {
@@ -54,5 +57,12 @@ export class Level01 extends Phaser.Sprite {
         ];
         this.obstacles.addMultiple(obstacles);
         this.game.add.existing(this.obstacles);
+    }
+
+    private addFinishZone(x, y) {
+        const finishZone = new FinishZone(this.game, x, y);
+        this.game.add.existing(finishZone);
+        this.game.physics.p2.enable(finishZone, true);
+        finishZone.setupBody();
     }
 }
