@@ -7,8 +7,8 @@ import {Rock} from '../sprites/rock';
 import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {FinishZone} from '../sprites/finish-zone';
-import {Boat} from "../sprites/boat";
-import {StickObstacle, RockObstacle} from "../sprites/obstacle";
+import {Boat} from '../sprites/boat';
+import {StickObstacle, RockObstacle} from '../sprites/obstacle';
 
 export class GameState extends Phaser.State {
     private mushroom: Mushroom;
@@ -25,7 +25,7 @@ export class GameState extends Phaser.State {
 
     init() {
         this.mousePointer = this.input.mousePointer;
-        // #01A2A6
+        this.stage.backgroundColor = '#01A2A6';
         this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
