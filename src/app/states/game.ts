@@ -4,7 +4,7 @@ import {Player} from '../sprites/player';
 import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
-import {Level} from '../sprites/level';
+import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {Boat} from "../sprites/boat";
 import {StickObstacle, RockObstacle} from "../sprites/obstacle";
@@ -16,13 +16,14 @@ export class GameState extends Phaser.State {
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockSprite: Rock;
-    private level: Level;
+    private level: Level01;
 
     private obstacles: Phaser.Group;
     private boats: Boat[] = [];
 
     init() {
         this.mousePointer = this.input.mousePointer;
+        // #01A2A6
         this.game.physics.startSystem(Phaser.Physics.P2JS);
     }
 
@@ -94,8 +95,8 @@ export class GameState extends Phaser.State {
         this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
 
         this.mouseInfo.font = 'Nunito';
-        this.mouseInfo.fontSize = 16;
-        this.mouseInfo.fill = '#FF0000';
+        this.mouseInfo.fontSize = 14;
+        this.mouseInfo.fill = '#000000';
 
         this.mouseInfo.anchor.setTo(0);
     }
@@ -131,16 +132,7 @@ export class GameState extends Phaser.State {
     }
 
     private addLevel() {
-        this.level = new Level(this.game);
-
-        this.game.add.existing(this.level);
-        this.game.physics.p2.enable(this.level, true); // change second param to false to disable debug mode
-
-        this.level.body.clearShapes();
-        this.level.body.loadPolygon('levelPhysics', 'level');
-        this.level.body.static = true;
-        this.level.body.x = 640;
-        this.level.body.y = 310;
+        this.level = new Level01(this.game);
     }
 
     private applyRockImpactOnItems(rockHit: RockHit) {
