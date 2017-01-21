@@ -1,6 +1,6 @@
 import {LevelBuilder} from './levels-builder';
 import {LevelBase} from './level-base';
-import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from '../sprites/obstacle'
+import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from '../sprites/obstacle';
 
 export class LevelsManager {
     private static activeLevelIndex: number = 0;
@@ -34,7 +34,8 @@ export class LevelsManager {
                             new RockObstacle(this.game, 720, 500, 0),
                             new NavalMineObstacle(this.game, 530, 240, 0),
                             new NavalMineObstacle(this.game, 510, 353, 0),
-                            new NavalMineObstacle(this.game, 588, 314, 0)
+                            new NavalMineObstacle(this.game, 588, 314, 0),
+                            new NavalMineObstacle(this.game, 500, 210, 0)
                         ])
                         .withFinishZone({ x: 400, y: 200 })
                 },
