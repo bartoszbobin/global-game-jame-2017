@@ -4,24 +4,27 @@ import {Player} from '../sprites/player';
 import {HitPower} from '../data/hit-power';
 import {RockHit} from '../data/rock-hit';
 import {Rock} from '../sprites/rock';
-import {Level01} from '../sprites/level-01';
 import {RockMark} from '../sprites/rock-mark';
 import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
 import {GameControll} from '../controlls/game-controll';
+import {LevelsManager} from '../levels/levels-manager';
+import {LevelBase} from '../levels/level-base';
 import {PowerMeter} from '../sprites/power-meter';
+import Body = Phaser.Physics.P2.Body;
 
 export class GameState extends Phaser.State {
     private gameControll: GameControll;
+    private levelsManager: LevelsManager;
     private mushroom: Mushroom;
     private player: Player;
     private mouseInfo: Phaser.Text;
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockSprite: Rock;
-    private level: Level01;
+    private level: LevelBase;
     private playerInfo: Phaser.Text;
-    private powerMeter: PowerMeter
+    private powerMeter: PowerMeter;
     private scorePanel: ScorePanel;
 
     init() {
@@ -36,10 +39,12 @@ export class GameState extends Phaser.State {
     }
 
     create() {
-        this.addPowerMeter();
-        this.addLevel();
+        this.levelsManager = new LevelsManager(this.game);
+        this.level = this.levelsManager.activeLevel;
+
         this.addPlayer();
         this.addMouseInfo();
+        this.addPowerMeter();
         this.addRockSprite();
         this.addPlayerInfo();
         this.addScorePanel(500, 10);
@@ -53,6 +58,21 @@ export class GameState extends Phaser.State {
 
     update(): void {
         super.update();
+
+        let boats = this.level.boats;
+        let boatNumStillInGame = boats.length;
+
+        for (const boat of boats) {
+            if (boat.isDead()) {
+                boatNumStillInGame--;
+            }
+        }
+
+        if (!boatNumStillInGame) {
+            this.game.state.start('GameOver');
+            return;
+        }
+
         const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position, this.mousePointer.position));
 
         this.player.setAngleInDeg(angleInDeg);
@@ -120,14 +140,18 @@ export class GameState extends Phaser.State {
         this.game.physics.enable(this.rockSprite, Phaser.Physics.ARCADE);
     }
 
-    private addLevel() {
-        this.level = new Level01(this.game, this.gameControll);
-    }
-
     private applyRockImpactOnItems(rockHit: RockHit) {
-        const bodies : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
-        if (bodies.length > 0) {
+        const levelHit : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, [this.level]);
+        if (levelHit.length > 0) {
+            console.debug('Ground hit');
             return;
+        }
+
+        const boatHits : any[] = this.game.physics.p2.hitTest(rockHit.toPoint, this.level.boats, 100);
+        if (boatHits.length > 0) {
+            for (const boat of boatHits) {
+                boat.parent.sprite.addDamage(Boat.HIT_BY_ROCK_POINTS);
+            }
         }
 
         const rockMark: RockMark = new RockMark(this.game);

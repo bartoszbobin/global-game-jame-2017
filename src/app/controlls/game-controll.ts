@@ -18,7 +18,7 @@ export class GameControll {
 
     private completeLevel(body) {
         if (body.sprite.key === FINISH_ZONE_KEY) {
-            console.log("level completed");
+            console.log('level completed');
         }
     }
 }

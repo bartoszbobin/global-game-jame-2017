@@ -24,7 +24,7 @@ export class ScorePanel extends Phaser.Sprite {
         rockSprite.scale.setTo(.25);
         rockSprite.anchor.setTo(.5, 0);
 
-        this.rockCounter = this.game.add.text(x + (rockSprite.width /2) + ScorePanel.OFFSET, y - 2, '0', {
+        this.rockCounter = this.game.add.text(x + (rockSprite.width / 2) + ScorePanel.OFFSET, y - 2, '0', {
             fontSize: 16,
             fill: '#FFFFFF'
         });

@@ -4,22 +4,19 @@ export class PowerMeter extends Phaser.Sprite {
     private pic: any;
 
     constructor(game) {
-        super(game, 100, 100, 'player');
+        super(game, 35, 50, 'power-meter');
         this.game = game;
-        this.anchor.setTo(0, 0.5);
+        this.anchor.setTo(0, 0);
 
-        this.pic = this.game.add.sprite(0, 0, 'power-meter');
-        this.cropRect = new Phaser.Rectangle(0, 50, 100, 100);
+        this.cropRect = new Phaser.Rectangle(0, 35, 50, 50);
         this.updateCrop();
     }
 
     setPosition(x, y, power) {
-        // console.log(this.cropRect.y);
         this.position.x = x;
-        this.position.y = y;
+        this.position.y = 25 + y - (power / 4);
 
-        this.cropRect.y = 100 - (power / 2);
-        console.log(this.cropRect.y);
+        this.cropRect.y = 50 - (power / 4);
         this.updateCrop();
     }
 }

@@ -1,8 +1,7 @@
 export class HitPower {
-
-    private static MIN_HOLD_TIME = 200;
     public static MAX_HOLD_TIME = 2000;
 
+    private static MIN_HOLD_TIME = 200;
     private startTimestamp : number;
 
     static getTimeStamp() : number {
