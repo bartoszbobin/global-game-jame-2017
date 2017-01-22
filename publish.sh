@@ -1,10 +1,9 @@
 #!/bin/bash
 
+base_repo=$1
+gh_pages_repo=$2
 actual_dir=${PWD}
-base_repo=$0
-gh_pages_repo=$1
 
-#cd /c/Workspaces/github/global-game-jame-2017/; 
 cd $base_repo;
 git pull; 
 npm run build; 
