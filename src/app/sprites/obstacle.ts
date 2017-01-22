@@ -130,7 +130,9 @@ export class NavalMineObstacle extends Obstacle {
         this.damagePower = 0;
 
         this.game.add.tween(this)
-            .to({ alpha: 0 }, 1000, (val) => {
+            .to({
+                alpha: 0,
+            }, 300, (val) => {
                 if (!this || !this.p2Body) {
                     return;
                 }
@@ -142,15 +144,15 @@ export class NavalMineObstacle extends Obstacle {
                 if (this.polygonRadius >= NavalMineObstacle.MAX_DAMAGE_RADIUS) {
                     this.p2Body.clearShapes();
                 } else {
-
+                    this.scale.setTo(this.scale.x + 0.005);
                     this.p2Body.setZeroVelocity();
                     this.p2Body.setZeroForce();
                     this.p2Body.setZeroDamping();
-                    this.p2Body.addCircle(this.polygonRadius += 0.25);
+                    this.p2Body.addCircle(this.polygonRadius += 0.5);
                 }
 
-                // return val - 0.01;
-            }, false, 0, 10)
+                return val;
+            })
             .start().onComplete.addOnce(() => {
                 this.destroy();
             });
