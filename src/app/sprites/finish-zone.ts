@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import {LevelsManager} from '../levels/levels-manager';
 import {GameState} from '../states/game';
+import {Boat} from "./boat";
 
 export class FinishZone extends Phaser.Sprite {
     constructor(game: Phaser.Game, x: number, y: number) {
@@ -12,7 +13,7 @@ export class FinishZone extends Phaser.Sprite {
     setupBody() {
         this.getP2Body().static = true;
         this.getP2Body().setCircle(40);
-        this.body.onBeginContact.add(this.handleContact, this.game.state);
+        this.body.onBeginContact.add((body) => this.handleContact(body), this.game.state);
     }
 
     getP2Body() : Phaser.Physics.P2.Body {
@@ -20,10 +21,9 @@ export class FinishZone extends Phaser.Sprite {
     }
 
     handleContact(body) {
-        console.log('FinishZone - handleContact');
+        console.debug('FinishZone - handleContact');
         if (body.sprite.key === 'boat-paper') {
-            let state = this.game.state.states.Game as GameState;
-            state.levelsManager.goToNext();
+            (<Boat> body.sprite).makeSafe(this.position.clone());
         }
     }
 

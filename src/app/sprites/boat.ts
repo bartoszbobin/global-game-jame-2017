@@ -6,11 +6,13 @@ export class Boat extends Phaser.Sprite {
     private static HEALTH_COLOR_GOOD = '#BBFF00';
     private static HEALTH_COLOR_WEAK = '#FFDB00';
     private static HEALTH_COLOR_BAD = '#FF5C41';
+
     private static HEALTH_VERTICAL_OFFSET = 9;
     private static HEALTH_HORIZONTAL_OFFSET = -26;
 
     health : number = 100;
     private healthText: Phaser.Text;
+    private safe: boolean = false;
 
     constructor(game : Phaser.Game, positionX : number, positionY : number) {
         super(game, positionX, positionY, 'boat-paper');
@@ -25,6 +27,29 @@ export class Boat extends Phaser.Sprite {
         let hitAnimation = this.addAnimation('hit');
         let swimUpAnimation = this.addAnimation('swim_up');
         swimUpAnimation.play();
+    }
+
+    public isSafe() : boolean {
+        return this.safe;
+    }
+
+    public makeSafe(zonePoint : Phaser.Point) : void {
+        this.safe = true;
+
+        this.getP2Body().clearShapes();
+        this.getP2Body().static = true;
+
+        this.getP2Body().setZeroDamping();
+        this.getP2Body().setZeroRotation();
+
+        this.game.add.tween(this.healthText)
+            .to({ alpha: 0 }, 250)
+            .start()
+            .onComplete.addOnce(() => this.healthText.destroy());
+
+        this.game.add.tween(this)
+            .to({ alpha: 0 }, 500)
+            .start();
     }
 
     public isDead() {

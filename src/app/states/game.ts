@@ -55,17 +55,11 @@ export class GameState extends Phaser.State {
     update(): void {
         super.update();
 
-        let boats = this.level.boats;
-        let boatNumStillInGame = boats.length;
-
-        for (const boat of boats) {
-            if (boat.isDead()) {
-                boatNumStillInGame--;
-            }
+        if (this.isGameOver()) {
+            return;
         }
 
-        if (!boatNumStillInGame) {
-            this.game.state.start('GameOver');
+        if (this.isLevelFinished()) {
             return;
         }
 
@@ -174,5 +168,35 @@ export class GameState extends Phaser.State {
 
         this.powerMeter = new PowerMeter(this.game);
         this.game.add.existing(this.powerMeter);
+    }
+
+    private isGameOver() : boolean {
+        for (const boat of this.level.boats) {
+            if (boat.isDead()) {
+                this.game.state.start('GameOver');
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private isLevelFinished() : boolean {
+        let boats = this.level.boats;
+        let boatNumStillInGame = boats.length;
+
+        for (const boat of boats) {
+            if (boat.isSafe()) {
+                boatNumStillInGame--;
+            }
+        }
+
+        if (!boatNumStillInGame) {
+            let state = this.game.state.states.Game as GameState;
+            state.levelsManager.goToNext();
+            return true;
+        }
+
+        return false;
     }
 }
