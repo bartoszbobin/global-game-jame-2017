@@ -55,6 +55,7 @@ export class LevelsManager {
 
     goToNext() {
         let nextLevelIndex = LevelsManager.activeLevelIndex + 1;
+        this.activeLevel.destroy();
 
         if (this.levels.length <= nextLevelIndex) {
             this.finishGame();

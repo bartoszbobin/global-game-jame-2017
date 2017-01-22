@@ -8,7 +8,7 @@ export class LevelBase extends Phaser.Sprite {
     constructor(
         private levelNumber: number,
         public boats: Boat[],
-        obstacles: Obstacle[],
+        private obstacles: Obstacle[],
         finishZone: FinishZone,
         game: Phaser.Game
     ) {
@@ -20,7 +20,7 @@ export class LevelBase extends Phaser.Sprite {
         this.scale.setTo(0.5);
 
         this.game.add.existing(this);
-        this.game.physics.p2.enable(this, true);
+        this.game.physics.p2.enable(this);
 
         this.p2Body.clearShapes();
         this.p2Body.loadPolygon(`levelPhysics-${levelNumber}`, `level-${this.levelNumber}-polygon`);
@@ -30,6 +30,11 @@ export class LevelBase extends Phaser.Sprite {
 
         this.addObstacles(obstacles);
         this.addFinishZone(finishZone);
+    }
+
+    destroy() {
+        super.destroy(true);
+        this.obstacles.forEach(o => o.destroy());
     }
 
     private addObstacles(obstacles: Obstacle[]) {

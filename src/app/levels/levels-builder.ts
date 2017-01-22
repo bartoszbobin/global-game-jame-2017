@@ -33,7 +33,7 @@ export class LevelBuilder {
             const boat = new Boat(this.game, dim.x, dim.y);
 
             this.game.add.existing(boat);
-            this.game.physics.p2.enable(boat);
+            this.game.physics.p2.enable(boat, true);
 
             boat.setupBody();
 
