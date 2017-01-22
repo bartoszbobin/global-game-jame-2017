@@ -28,11 +28,9 @@ export class ScorePanel extends Phaser.Sprite {
             fontSize: 16,
             fill: '#FFFFFF'
         });
-
     }
 
     update() {
         this.rockCounter.setText(`${this.player.getUsedRocks()}`);
     }
-
 }

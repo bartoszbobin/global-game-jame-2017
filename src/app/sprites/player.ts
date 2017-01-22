@@ -1,9 +1,8 @@
 import * as Phaser from 'phaser';
+import {ScoreManager} from '../data/score-manager';
 
 export class Player extends Phaser.Sprite {
     private static BASE_ANGLE_OFFSET : number = -90;
-
-    private usedRocks : number = 0;
 
     constructor(game : Phaser.Game, x : number, y : number) {
         super(game, x, y, 'player');
@@ -20,11 +19,10 @@ export class Player extends Phaser.Sprite {
     }
 
     increaseUsedRocks() : void {
-        this.usedRocks++;
-        localStorage.setItem('usedRocks', this.usedRocks.toString());
+        ScoreManager.actualScore ++;
     }
 
     getUsedRocks() : number {
-        return this.usedRocks;
+        return ScoreManager.actualScore;
     }
 }

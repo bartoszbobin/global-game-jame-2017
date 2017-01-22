@@ -27,7 +27,7 @@ export class Obstacle extends Phaser.Sprite {
     }
 
     protected handleContact(body) {
-        if (body.sprite.key === 'boat-paper') {
+        if (body && body.sprite.key === 'boat-paper') {
             body.sprite.addDamage(this.getDamagePower());
         }
     }
