@@ -4,13 +4,17 @@ import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMine
 
 export class LevelsManager {
     private static activeLevelIndex: number = 0;
+    private _activeLevel: LevelBase;
 
     private levels = [] as [{ value: LevelBuilder }];
 
     get activeLevel(): LevelBase {
-        return this.levels[LevelsManager.activeLevelIndex]
-            ? this.levels[LevelsManager.activeLevelIndex].value.build()
-            : null;
+        if (this.levels[LevelsManager.activeLevelIndex]) {
+            this._activeLevel = this._activeLevel || this.levels[LevelsManager.activeLevelIndex].value.build();
+            return this._activeLevel;
+        } else {
+            return null;
+        }
     };
 
     constructor(private game: Phaser.Game) {
@@ -26,7 +30,7 @@ export class LevelsManager {
                             { x: 400, y: 340 },
                             { x: 860, y: 380 },
                         ])
-                        .withObstacles([
+                        .withObstacles(() => [
                             new StickObstacle(this.game, 300, 300),
                             new StickObstacle(this.game, 390, 120, 90),
                             new WoodObstacle(this.game, 645, 280, 45),
@@ -45,7 +49,7 @@ export class LevelsManager {
                             { x: 237, y: 288 },
                             { x: 983, y: 430 },
                         ])
-                        .withObstacles([
+                        .withObstacles(() => [
                             new StickObstacle(this.game, 983, 430),
                         ])
                         .withFinishZone({ x: 1150, y: 550 })
@@ -56,6 +60,7 @@ export class LevelsManager {
     goToNext() {
         let nextLevelIndex = LevelsManager.activeLevelIndex + 1;
         this.activeLevel.destroy();
+        this._activeLevel = null;
 
         if (this.levels.length <= nextLevelIndex) {
             this.finishGame();
