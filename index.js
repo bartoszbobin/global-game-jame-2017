@@ -61,7 +61,7 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	exports.ENABLE_POLYGONS = true;
+	exports.ENABLE_POLYGONS = false;
 
 
 /***/ },
@@ -136,13 +136,15 @@
 	                {
 	                    value: new levels_builder_1.LevelBuilder(1, game)
 	                        .withBoats([
-	                        { x: 264, y: 234 },
+	                        { x: 200, y: 150 }
 	                    ])
 	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 300, 300),
+	                        new obstacle_1.StickObstacle(_this.game, 320, 270. - 10),
 	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
 	                        new obstacle_1.StickObstacle(_this.game, 370, 120, 90),
 	                        new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
+	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 404),
+	                        new obstacle_1.WhirlpoolObstacle(_this.game, 110, 210),
 	                        new obstacle_1.WoodObstacle(_this.game, 645, 270, 45),
 	                        new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
 	                        new obstacle_1.RockObstacle(_this.game, 320, 440, 10),
@@ -156,7 +158,6 @@
 	                        new obstacle_1.NavalMineObstacle(_this.game, 490, 353, 0),
 	                        new obstacle_1.NavalMineObstacle(_this.game, 560, 345, 0),
 	                        new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
-	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 404)
 	                    ]; })
 	                        .withFinishZone({ x: 1150, y: 470 })
 	                },
