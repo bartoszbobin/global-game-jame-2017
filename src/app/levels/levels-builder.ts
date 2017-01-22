@@ -2,7 +2,7 @@ import {Obstacle} from '../sprites/obstacle';
 import {Boat} from '../sprites/boat';
 import {FinishZone} from '../sprites/finish-zone';
 import {LevelBase} from './level-base';
-import {ENABLE_POLYGONS} from '../../index';
+import {ENABLE_POLYGONS} from '../data/global';
 
 export class LevelBuilder {
     private boatsPositions: { x: number, y: number }[] = [];

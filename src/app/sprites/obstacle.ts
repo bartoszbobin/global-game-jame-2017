@@ -3,7 +3,7 @@ import * as Phaser from 'phaser';
 import {getRandomInt} from '../utils';
 import {Boat} from './boat';
 import {WaterWave} from './water-wave';
-import {ENABLE_POLYGONS} from '../../index';
+import {ENABLE_POLYGONS} from '../data/global';
 
 export class Obstacle extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
