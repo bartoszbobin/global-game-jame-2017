@@ -16,7 +16,7 @@ export class GameState extends Phaser.State {
     levelsManager: LevelsManager;
     private mushroom: Mushroom;
     private player: Player;
-    // private mouseInfo: Phaser.Text;
+    private mouseInfo: Phaser.Text;
     private mousePointer: Phaser.Pointer;
     private hitPower: HitPower;
     private rockSprite: Rock;
@@ -39,7 +39,7 @@ export class GameState extends Phaser.State {
         this.level = this.levelsManager.activeLevel;
 
         this.addPlayer(this.level.playerPosition);
-        // this.addMouseInfo();
+        this.addMouseInfo();
         this.addPowerMeter();
         this.addRockSprite();
         this.addPlayerInfo();
@@ -60,7 +60,7 @@ export class GameState extends Phaser.State {
         this.handlePlayerRotation();
         this.handleRockHitting();
 
-        // this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
+        this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
         if (this.hitPower) {
             // this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
             if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
@@ -117,15 +117,15 @@ export class GameState extends Phaser.State {
         this.game.add.existing(this.player);
     }
 
-    // private addMouseInfo() {
-    //     this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
+    private addMouseInfo() {
+        this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
 
-    //     this.mouseInfo.font = 'Chewy';
-    //     this.mouseInfo.fontSize = 14;
-    //     this.mouseInfo.fill = '#000000';
+        this.mouseInfo.font = 'Chewy';
+        this.mouseInfo.fontSize = 14;
+        this.mouseInfo.fill = '#000000';
 
-    //     this.mouseInfo.anchor.setTo(0);
-    // }
+        this.mouseInfo.anchor.setTo(0);
+    }
 
     private addRockSprite() {
         this.rockSprite = new Rock(this.game, this.player);

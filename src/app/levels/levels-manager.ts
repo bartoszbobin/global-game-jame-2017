@@ -23,8 +23,7 @@ export class LevelsManager {
 
     constructor(private game: Phaser.Game) {
         // define levels
-        this.levels =
-            [
+        this.levels = [
                 {
                     value: new LevelBuilder(1, game)
                         .withPlayer(50, 50)
@@ -87,6 +86,101 @@ export class LevelsManager {
                             new NavalMineObstacle(this.game, 500, 210, 0),
                         ])
                         .withFinishZone({ x: 1150, y: 550 })
+                },
+                {
+                    value: new LevelBuilder(3, game)
+                        .withPlayer(570, 50)
+                        .withBoats([
+                            { x: 195, y: 500 }
+                        ])
+                        .withObstacles(() => [
+                            /* MINES */
+                            new NavalMineObstacle(this.game, 150, 200, -10),
+                            new NavalMineObstacle(this.game, 150, 250, 0),
+                            new NavalMineObstacle(this.game, 150, 300, 0),
+                            new NavalMineObstacle(this.game, 150, 350, -10),
+                            new NavalMineObstacle(this.game, 150, 400, 0),
+                            new NavalMineObstacle(this.game, 150, 450, 0),
+
+                            new NavalMineObstacle(this.game, 250, 200, -10),
+                            new NavalMineObstacle(this.game, 250, 250, 0),
+                            new NavalMineObstacle(this.game, 250, 300, 0),
+                            new NavalMineObstacle(this.game, 250, 350, -10),
+                            new NavalMineObstacle(this.game, 250, 400, 0),
+                            new NavalMineObstacle(this.game, 250, 450, 0),
+                            new NavalMineObstacle(this.game, 250, 500, 0),
+
+                            new NavalMineObstacle(this.game, 350, 100, -10),
+                            new NavalMineObstacle(this.game, 350, 150, 0),
+                            new NavalMineObstacle(this.game, 350, 200, -10),
+                            new NavalMineObstacle(this.game, 350, 250, 0),
+                            new NavalMineObstacle(this.game, 350, 300, 0),
+                            new NavalMineObstacle(this.game, 350, 350, -10),
+                            new NavalMineObstacle(this.game, 350, 400, 0),
+                            new NavalMineObstacle(this.game, 350, 450, 0),
+
+                            new NavalMineObstacle(this.game, 450, 200, -10),
+                            new NavalMineObstacle(this.game, 450, 250, 0),
+                            new NavalMineObstacle(this.game, 450, 300, 0),
+                            new NavalMineObstacle(this.game, 450, 350, -10),
+                            new NavalMineObstacle(this.game, 450, 400, 0),
+                            new NavalMineObstacle(this.game, 450, 450, 0),
+                            new NavalMineObstacle(this.game, 450, 500, 0),
+
+                            new NavalMineObstacle(this.game, 550, 150, 0),
+                            new NavalMineObstacle(this.game, 550, 200, -10),
+                            new NavalMineObstacle(this.game, 550, 250, 0),
+                            new NavalMineObstacle(this.game, 550, 300, 0),
+                            new NavalMineObstacle(this.game, 550, 350, -10),
+                            new NavalMineObstacle(this.game, 550, 400, 0),
+                            new NavalMineObstacle(this.game, 550, 450, 0),
+
+                            new NavalMineObstacle(this.game, 650, 200, -10),
+                            new NavalMineObstacle(this.game, 650, 250, 0),
+                            new NavalMineObstacle(this.game, 650, 300, 0),
+                            new NavalMineObstacle(this.game, 650, 350, -10),
+                            new NavalMineObstacle(this.game, 650, 400, 0),
+                            new NavalMineObstacle(this.game, 650, 450, 0),
+                            new NavalMineObstacle(this.game, 650, 500, 0),
+                            new NavalMineObstacle(this.game, 650, 550, 0),
+
+                            new NavalMineObstacle(this.game, 750, 100, -10),
+                            new NavalMineObstacle(this.game, 750, 150, 0),
+                            new NavalMineObstacle(this.game, 750, 200, -10),
+                            new NavalMineObstacle(this.game, 750, 250, 0),
+                            new NavalMineObstacle(this.game, 750, 300, 0),
+                            new NavalMineObstacle(this.game, 750, 350, -10),
+                            new NavalMineObstacle(this.game, 750, 400, 0),
+                            new NavalMineObstacle(this.game, 750, 450, 0),
+
+                            new NavalMineObstacle(this.game, 850, 200, -10),
+                            new NavalMineObstacle(this.game, 850, 250, 0),
+                            new NavalMineObstacle(this.game, 850, 300, 0),
+                            new NavalMineObstacle(this.game, 850, 350, -10),
+                            new NavalMineObstacle(this.game, 850, 400, 0),
+                            new NavalMineObstacle(this.game, 850, 450, 0),
+                            new NavalMineObstacle(this.game, 850, 500, 0),
+                            new NavalMineObstacle(this.game, 850, 550, 0),
+
+                            new NavalMineObstacle(this.game, 950, 100, -10),
+                            new NavalMineObstacle(this.game, 950, 150, 0),
+                            new NavalMineObstacle(this.game, 950, 200, -10),
+                            new NavalMineObstacle(this.game, 950, 250, 0),
+                            new NavalMineObstacle(this.game, 950, 300, 0),
+                            new NavalMineObstacle(this.game, 950, 350, -10),
+                            new NavalMineObstacle(this.game, 950, 400, 0),
+                            new NavalMineObstacle(this.game, 950, 450, 0),
+
+                            new NavalMineObstacle(this.game, 1050, 200, -10),
+                            new NavalMineObstacle(this.game, 1050, 250, 0),
+                            new NavalMineObstacle(this.game, 1050, 300, 0),
+                            new NavalMineObstacle(this.game, 1050, 350, -10),
+                            new NavalMineObstacle(this.game, 1050, 400, 0),
+                            new NavalMineObstacle(this.game, 1050, 450, 0),
+                            new NavalMineObstacle(this.game, 1050, 500, 0)
+
+                        ])
+                        .withFinishZone({ x: 1180, y: 300 })
                 }
             ];
     }

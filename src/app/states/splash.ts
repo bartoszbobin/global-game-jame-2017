@@ -26,6 +26,7 @@ export class SplashState extends Phaser.State {
         this.load.image('boat-paper', 'assets/images/boat-paper.png');
         this.load.image('levels/level-1', 'assets/levels/level-01.png');
         this.load.image('levels/level-2', 'assets/levels/level-02.png');
+        this.load.image('levels/level-3', 'assets/levels/level-03.png');
         this.load.image('stick', 'assets/images/stick.png');
         this.load.image('wood', 'assets/images/wood.png');
         this.load.image('rock-obstacle', 'assets/images/rock-obstacle.png');
@@ -36,6 +37,7 @@ export class SplashState extends Phaser.State {
 
         this.load.physics('levelPhysics-1', 'assets/levels/level-physics.json');
         this.load.physics('levelPhysics-2', 'assets/levels/level-2-physics.json');
+        this.load.physics('levelPhysics-3', 'assets/levels/level-3-physics.json');
         this.load.physics('boatPhysics', 'assets/images/boat-physics.json');
         this.load.physics('stickPhysics', 'assets/images/stick-physics.json');
         this.load.physics('woodPhysics', 'assets/images/wood-physics.json');
