@@ -46,6 +46,7 @@ export class Boat extends Phaser.Sprite {
         }
 
         this.healthText.setText(`${Math.max(0, this.health)}`);
+        this.game.world.bringToTop(this.healthText);
     }
 
     public addDamage(points : number) {

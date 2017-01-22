@@ -53,7 +53,7 @@ export class LevelsManager {
                         .withObstacles(() => [
                             new StickObstacle(this.game, 983, 430),
                         ])
-                        .withFinishZone({ x: 1150, y: 500 })
+                        .withFinishZone({ x: 1150, y: 550 })
                 }
             ];
     }
@@ -75,7 +75,6 @@ export class LevelsManager {
 
     private finishGame() {
         ScoreManager.saveScore(ScoreManager.actualScore);
-
         this.game.state.start('HighScore');
     }
 }

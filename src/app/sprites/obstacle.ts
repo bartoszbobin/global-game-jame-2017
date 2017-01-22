@@ -62,9 +62,8 @@ export class StickObstacle extends Obstacle {
 
 export class WoodObstacle extends Obstacle {
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
-        super(game, 'stick', positionX, positionY, rotationInArcs);
+        super(game, 'wood', positionX, positionY, rotationInArcs);
 
-        this.scale = new Phaser.Point(2, 2);
         this.p2Body.mass = 450;
         this.p2Body.static = false;
     }
@@ -124,6 +123,10 @@ export class NavalMineObstacle extends Obstacle {
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
         this.p2Body.setCircle(this.polygonRadius, 0, 0);
+
+        this.p2Body.setZeroVelocity();
+        this.p2Body.setZeroForce();
+        this.p2Body.setZeroDamping();
     }
 
     public blowUp() {
