@@ -2,23 +2,26 @@
   "name": "trip-to-san-escobar",
   "description": "Trip to San Escobar - 4k HD USB Edition",
   "version": "1.0.0",
-  "homepage": "https://github.com/Michael Giambalvo/hello-phaser",
+  "homepage": "http://globalgamejam.org/2017/games/trip-san-escobar",
   "author": {
-    "name": "heathkit",
-    "email": "heathkit@google.com"
+    "name": "Goyello TS team",
+    "email": ""
   },
+  "contributors": [
+    "Michal Michalczuk",
+    "Bartosz Bobin",
+    "Adam Bereziuk",
+    "Karol Gierszewski",
+    "Karol Dąbrowski"
+  ],
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Michael Giambalvo/hello-phaser.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Michael Giambalvo/hello-phaser/issues"
+    "url": "https://github.com/bartoszbobin/global-game-jame-2017"
   },
   "licenses": [
     {
-      "type": "MIT",
-      "url": "https://github.com/Michael Giambalvo/hello-phaser/blob/master/LICENSE"
+      "type": "MIT"
     }
   ],
   "scripts": {
