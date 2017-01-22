@@ -28,6 +28,8 @@ export class LevelBase extends Phaser.Sprite {
         this.p2Body.static = true;
         this.p2Body.x = 640;
         this.p2Body.y = 310;
+        this.p2Body.velocity.x = 0.001;
+        this.p2Body.velocity.y = 0.001;
 
         this.addObstacles(obstacles);
         this.addFinishZone(finishZone);

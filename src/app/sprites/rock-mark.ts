@@ -37,7 +37,7 @@ export class RockMark extends Phaser.Sprite {
         this.updateCircles();
         this.getP2Body().mass = 10;
         this.getP2Body().static = true;
-
+console.debug('hit', <any> this.getP2Body().rotation);
         this.game.add.tween(this)
             .to({}, 1000, () => this.updateCircles())
             .start().onComplete.addOnce(() => {
@@ -56,7 +56,7 @@ export class RockMark extends Phaser.Sprite {
     }
 
     private updateCircles() : void {
-        let factor = (this.power / (.9 * HitPower.MAX_HOLD_TIME / 10));
+        let factor = (this.power / (1.2 * HitPower.MAX_HOLD_TIME / 10));
         this.counter ++;
 
         if (this.counter === 1 || this.counter % RockMark.WAVE_OFFSET === 0) {

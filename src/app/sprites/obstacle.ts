@@ -24,6 +24,8 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.static = true;
         this.p2Body.clearShapes();
         this.p2Body.angle = this.rotationInArcs;
+        this.p2Body.velocity.x = 0.1;
+        this.p2Body.velocity.y = 0.1;
         this.loadPolygon();
     }
 
@@ -86,7 +88,7 @@ export class NavalMineObstacle extends Obstacle {
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
         super(game, 'naval-mine', positionX, positionY, rotationInArcs);
 
-        this.damagePower = 25;
+        this.damagePower = 40;
     }
 
     public isArmed() {

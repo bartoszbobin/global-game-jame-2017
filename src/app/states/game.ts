@@ -46,12 +46,6 @@ export class GameState extends Phaser.State {
         this.addScorePanel(500, 10);
     }
 
-    render() {
-        if (window['__DEV__']) {
-            this.game.debug.spriteInfo(this.mushroom, 32, 32);
-        }
-    }
-
     update(): void {
         super.update();
 
@@ -63,10 +57,26 @@ export class GameState extends Phaser.State {
             return;
         }
 
-        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
+        this.handlePlayerRotation();
+        this.handleRockHitting();
 
-        this.player.setAngleInDeg(angleInDeg);
+        this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
+        if (this.hitPower) {
+            this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+            }
+        } else {
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+            }
+        }
 
+    }
+
+    private handleRockHitting() {
         if (this.mousePointer.isDown) {
             if (!this.hitPower) {
                 if (this.rockSprite.isReadyToHit()) {
@@ -85,6 +95,7 @@ export class GameState extends Phaser.State {
             // throwing rock
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
+                const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
                 this.rockSprite.hit(rockHit)
                     .then(() => {
@@ -94,21 +105,11 @@ export class GameState extends Phaser.State {
             }
             this.hitPower = null;
         }
+    }
 
-        this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
-        if (this.hitPower) {
-            this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
-            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
-                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
-                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
-            }
-        } else {
-            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
-                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
-                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
-            }
-        }
-
+    private handlePlayerRotation() {
+        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
+        this.player.setAngleInDeg(angleInDeg);
     }
 
     private addPlayer() {
