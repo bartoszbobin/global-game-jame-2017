@@ -52,6 +52,24 @@ export class Boat extends Phaser.Sprite {
             .start();
     }
 
+    public whirlpool() : void {
+
+        this.getP2Body().clearShapes();
+        this.getP2Body().static = true;
+
+        this.getP2Body().setZeroDamping();
+        this.getP2Body().setZeroRotation();
+
+        this.game.add.tween(this.healthText)
+            .to({ alpha: 0 }, 250)
+            .start()
+            .onComplete.addOnce(() => this.healthText.destroy());
+
+        this.game.add.tween(this)
+            .to({ alpha: 0 }, 1000)
+            .start().onComplete.addOnce(() => this.health = 0);
+    }
+
     public isDead() {
         return this.health <= 0;
     }
