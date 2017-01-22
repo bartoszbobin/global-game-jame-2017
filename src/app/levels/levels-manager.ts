@@ -28,13 +28,15 @@ export class LevelsManager {
                 {
                     value: new LevelBuilder(1, game)
                         .withBoats([
-                            { x: 264, y: 234 },
+                            { x: 200, y: 150 }
                         ])
                         .withObstacles(() => [
-                            new StickObstacle(this.game, 300, 300),
+                            new StickObstacle(this.game, 320, 270. -10),
                             new StickObstacle(this.game, 200, 300, -45),
                             new StickObstacle(this.game, 370, 120, 90),
                             new StickObstacle(this.game, 420, 190, -20),
+                            new WhirlpoolObstacle(this.game, 310, 404),
+                            new WhirlpoolObstacle(this.game, 110, 210),
                             new WoodObstacle(this.game, 645, 270, 45),
                             new RockObstacle(this.game, 200, 30, -15),
                             new RockObstacle(this.game, 320, 440, 10),
@@ -48,7 +50,6 @@ export class LevelsManager {
                             new NavalMineObstacle(this.game, 490, 353, 0),
                             new NavalMineObstacle(this.game, 560, 345, 0),
                             new NavalMineObstacle(this.game, 500, 210, 0),
-                            new WhirlpoolObstacle(this.game, 310, 404)
                         ])
                         .withFinishZone({ x: 1150, y: 470 })
                 },
