@@ -26,6 +26,7 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.angle = this.rotationInArcs;
         this.p2Body.velocity.x = 0.1;
         this.p2Body.velocity.y = 0.1;
+        this.p2Body.damping = 0.75;
         this.loadPolygon();
     }
 

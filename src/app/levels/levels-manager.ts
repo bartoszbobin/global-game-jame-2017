@@ -25,7 +25,7 @@ export class LevelsManager {
                 {
                     value: new LevelBuilder(1, game)
                         .withBoats([
-                            { x: 1020, y: 420 },
+                            { x: 264, y: 234 },
                         ])
                         .withObstacles(() => [
                             new StickObstacle(this.game, 300, 300),
