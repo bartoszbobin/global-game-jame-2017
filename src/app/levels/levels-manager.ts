@@ -25,11 +25,7 @@ export class LevelsManager {
                 {
                     value: new LevelBuilder(1, game)
                         .withBoats([
-                            { x: 192, y: 128 },
-                            { x: 237, y: 288 },
                             { x: 1020, y: 420 },
-                            { x: 400, y: 340 },
-                            { x: 860, y: 380 },
                         ])
                         .withObstacles(() => [
                             new StickObstacle(this.game, 300, 300),
@@ -56,6 +52,14 @@ export class LevelsManager {
                         .withFinishZone({ x: 1150, y: 550 })
                 }
             ];
+    }
+
+    setInitial() {
+        let nextLevelIndex = LevelsManager.activeLevelIndex + 1;
+        this.activeLevel.destroy();
+        this._activeLevel = null;
+
+        LevelsManager.activeLevelIndex = 0;
     }
 
     goToNext() {
