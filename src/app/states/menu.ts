@@ -44,7 +44,7 @@ export class MenuState extends Phaser.State {
     removeLetterOnBackspacePress() {
         const backspaceKeyCode = 8;
 
-        document.addEventListener("keydown", (e) => {
+        document.addEventListener('keydown', (e) => {
             if (this.userName.length && e.keyCode === backspaceKeyCode) {
                 this.userName = this.userName.substr(0, this.userName.length - 1);
 
@@ -59,8 +59,8 @@ export class MenuState extends Phaser.State {
     }
 
     addLetter(char, keyInfo) {
-        if (keyInfo.code === "Space" || (keyInfo.code === 'Enter' && this.userName.length < 3)) {
-            return false
+        if (keyInfo.code === 'Space' || (keyInfo.code === 'Enter' && this.userName.length < 3)) {
+            return false;
         }
 
         if (this.userName.length < 3) {

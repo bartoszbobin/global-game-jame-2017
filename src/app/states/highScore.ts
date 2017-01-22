@@ -4,9 +4,6 @@ export class HighScoreState extends Phaser.State {
     private highScore: Phaser.Text;
     private highScoreResults: Phaser.Text;
 
-    init() {
-    }
-
     preload() {
         this.load.image('restart-button', './assets/images/restart-button.png');
         this.load.image('highscore-background', './assets/images/highscore-background.png');
@@ -51,6 +48,6 @@ export class HighScoreState extends Phaser.State {
 
         this.highScoreResults.font = 'Chewy';
         this.highScoreResults.fill = '#BBFF00';
-        this.highScoreResults.fontSize = 40;    
+        this.highScoreResults.fontSize = 40;
     }
 }

@@ -2,11 +2,6 @@ import * as Phaser from 'phaser';
 import {LevelsManager} from '../levels/levels-manager';
 
 export class GameOverState extends Phaser.State {
-    private mouseInfo: Phaser.Text;
-
-    init() {
-    }
-
     preload() {
         this.load.image('restart-button', './assets/images/restart-button.png');
         this.load.image('gameOver-background', './assets/images/gameOver-background.png');
@@ -20,7 +15,7 @@ export class GameOverState extends Phaser.State {
     startGame() {
         let levelManager = new LevelsManager(this.game);
         levelManager.setInitial();
-        
+
         this.game.state.start('Menu');
     }
 }
