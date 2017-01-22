@@ -1,1 +1,1 @@
-export const ENABLE_POLYGONS : boolean = true;
+export const ENABLE_POLYGONS : boolean = false;
