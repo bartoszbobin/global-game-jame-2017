@@ -1,4 +1,8 @@
 # Trip to San Escobar
+Global Game Jam game side: http://globalgamejam.org/2017/games/trip-san-escobar
+
+## Play it now !!
+[Click here](https://bartoszbobin.github.io/global-game-jame-2017/)
 
 ## Description
 Game based on annual event in San Escobar, a small country located to the south of Mexico and Westeros. In the past, children in San Escobar were writing numerous letter prayers to saint Pablo Escobar, who helped a lot of people during his lifetime. Letters were then fold into small boats and put on main river, Rio Mojito. Children often throw rocks to push boats further to help them reach main current. It was believed, that saint Escobar were often walking on the river surface and read all the prayers. Nowadays, paper boat championships are a well known national tradition in San Escobar. They are organized once a year, during summer. People gather near Rio Mojito, throwing rocks near paper boats to push them as close to picked destination as its possible. 
