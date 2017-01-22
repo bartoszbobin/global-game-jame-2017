@@ -30,6 +30,7 @@ export class LevelBase extends Phaser.Sprite {
 
         this.addObstacles(obstacles);
         this.addFinishZone(finishZone);
+        this.moveBoatsToTop();
     }
 
     destroy() {
@@ -47,5 +48,13 @@ export class LevelBase extends Phaser.Sprite {
         this.game.add.existing(finishZone);
         this.game.physics.p2.enable(finishZone, true);
         finishZone.setupBody();
+    }
+
+    private moveBoatsToTop() {
+        if (this.boats && this.boats.length) {
+            for(let boat of this.boats) {
+                this.game.world.bringToTop(boat);
+            }
+        }
     }
 }
