@@ -1,7 +1,5 @@
 import * as Phaser from 'phaser';
-import {LevelsManager} from '../levels/levels-manager';
-import {GameState} from '../states/game';
-import {Boat} from "./boat";
+import {Boat} from './boat';
 
 export class FinishZone extends Phaser.Sprite {
     constructor(game: Phaser.Game, x: number, y: number) {
@@ -26,5 +24,4 @@ export class FinishZone extends Phaser.Sprite {
             (<Boat> body.sprite).makeSafe(this.position.clone());
         }
     }
-
 }

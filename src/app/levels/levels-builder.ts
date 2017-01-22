@@ -8,8 +8,14 @@ export class LevelBuilder {
     private boatsPositions: { x: number, y: number }[] = [];
     private obstaclesDefinition: () => Obstacle[];
     private finishZone: FinishZone;
+    private playerPosition: Phaser.Point;
 
     constructor(private levelNumber: number, private game: Phaser.Game) {
+    }
+
+    withPlayer(x: number, y: number): LevelBuilder {
+        this.playerPosition = new Phaser.Point(x, y);
+        return this;
     }
 
     withBoats(boatsPositions: { x: number, y: number }[]): LevelBuilder {
@@ -43,6 +49,6 @@ export class LevelBuilder {
 
         let obstacles = this.obstaclesDefinition();
 
-        return new LevelBase(this.levelNumber, boats, obstacles, this.finishZone, this.game);
+        return new LevelBase(this.levelNumber, this.playerPosition, boats, obstacles, this.finishZone, this.game);
     }
 }
