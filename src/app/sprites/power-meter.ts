@@ -1,8 +1,6 @@
 import * as Phaser from 'phaser';
 
 export class PowerMeter extends Phaser.Sprite {
-    private pic: any;
-
     constructor(game) {
         super(game, 35, 50, 'power-meter');
         this.game = game;
@@ -20,3 +18,24 @@ export class PowerMeter extends Phaser.Sprite {
         this.updateCrop();
     }
 }
+
+export class PowerMeterBg extends Phaser.Sprite {
+    constructor(game) {
+        super(game, 35, 50, 'power-meter-bg');
+        this.game = game;
+        this.anchor.setTo(0, 0);
+        this.scale.setTo(0);
+    }
+
+    setPosition(x, y, power) {
+        this.position.x = x;
+        this.position.y = y - 25;
+
+        if (power) {
+            this.scale.setTo(1);
+        } else {
+            this.scale.setTo(0);
+        }
+    }
+}
+

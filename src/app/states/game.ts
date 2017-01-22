@@ -9,7 +9,7 @@ import {Boat} from '../sprites/boat';
 import {ScorePanel} from '../sprites/score-panel';
 import {LevelsManager} from '../levels/levels-manager';
 import {LevelBase} from '../levels/level-base';
-import {PowerMeter} from '../sprites/power-meter';
+import {PowerMeter, PowerMeterBg} from '../sprites/power-meter';
 import Body = Phaser.Physics.P2.Body;
 
 export class GameState extends Phaser.State {
@@ -23,6 +23,7 @@ export class GameState extends Phaser.State {
     private level: LevelBase;
     private playerInfo: Phaser.Text;
     private powerMeter: PowerMeter;
+    private powerMeterBg: PowerMeterBg;
     private scorePanel: ScorePanel;
 
     init() {
@@ -105,10 +106,12 @@ export class GameState extends Phaser.State {
             this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
             if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
                 this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
             }
         } else {
             if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
                 this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
             }
         }
 
@@ -166,6 +169,9 @@ export class GameState extends Phaser.State {
     }
 
     private addPowerMeter() {
+        this.powerMeterBg = new PowerMeterBg(this.game);
+        this.game.add.existing(this.powerMeterBg);
+
         this.powerMeter = new PowerMeter(this.game);
         this.game.add.existing(this.powerMeter);
     }

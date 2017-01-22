@@ -3,9 +3,11 @@ import * as Phaser from 'phaser';
 export class Boat extends Phaser.Sprite {
     public static HIT_BY_ROCK_POINTS: number = 200;
 
-    private static HEALTH_COLOR_GOOD = '#00FF00';
-    private static HEALTH_COLOR_WEAK = '#FFFF00';
-    private static HEALTH_COLOR_BAD = '#FF0000';
+    private static HEALTH_COLOR_GOOD = '#BBFF00';
+    private static HEALTH_COLOR_WEAK = '#FFDB00';
+    private static HEALTH_COLOR_BAD = '#FF5C41';
+    private static HEALTH_VERTICAL_OFFSET = 9;
+    private static HEALTH_HORIZONTAL_OFFSET = -26;
 
     health : number = 100;
     private healthText: Phaser.Text;
@@ -16,7 +18,7 @@ export class Boat extends Phaser.Sprite {
         this.game = game;
         this.anchor.setTo(0.5, 0.5);
         this.healthText = this.game.add.text(this.position.x, this.position.y, '', {
-            fontSize: 11,
+            font: '11px Chewy'
         });
         this.updateHealthText();
 
@@ -30,8 +32,8 @@ export class Boat extends Phaser.Sprite {
     }
 
     update() {
-        this.healthText.position.x = this.position.x;
-        this.healthText.position.y = this.position.y;
+        this.healthText.position.x = this.position.x + Boat.HEALTH_VERTICAL_OFFSET;
+        this.healthText.position.y = this.position.y + Boat.HEALTH_HORIZONTAL_OFFSET;
     }
 
     updateHealthText() : void {
@@ -63,9 +65,7 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().velocity.x = 0.5;
         this.getP2Body().velocity.y = 0.1;
         this.getP2Body().damping = .15;
-
-        this.getP2Body().setCircle(12);
-
+        this.getP2Body().setCircle(14, -5, -4);
     }
 
     handleContact(body) {
