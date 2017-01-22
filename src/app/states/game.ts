@@ -69,7 +69,7 @@ export class GameState extends Phaser.State {
             return;
         }
 
-        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position, this.mousePointer.position));
+        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
 
         this.player.setAngleInDeg(angleInDeg);
 
