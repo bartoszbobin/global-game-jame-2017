@@ -8,7 +8,9 @@ export class TutorialState extends Phaser.State {
 
     preload() {
         this.load.image('restart-button', './assets/images/restart-button.png');
-        this.load.image('gameOver-background', './assets/images/gameOver-background.png');
+        this.load.image('gameOver-background', './assets/images/gameOff.png');
+
+        this.input.keyboard.addCallbacks(this, null, null, this.changeScreen);
     }
 
     create() {
@@ -18,5 +20,11 @@ export class TutorialState extends Phaser.State {
 
     startGame() {
         this.game.state.start('Menu');
+    }
+
+    changeScreen(char, keyInfo) {
+        if (keyInfo.code === 'ENTER') {
+            
+        } 
     }
 }

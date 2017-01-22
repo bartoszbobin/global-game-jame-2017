@@ -7,6 +7,7 @@ export class MenuState extends Phaser.State {
     private letter3;
     private userName = '';
     private startButton;
+    private tutorialButton;
 
     init() {
         this.userName = '';
@@ -15,6 +16,7 @@ export class MenuState extends Phaser.State {
     preload() {
         this.load.image('menu-start-button', './assets/images/menu-start-button.png');
         this.load.image('menu-background', './assets/images/menu-background.png');
+        this.load.image('instructions-button', './assets/images/menu-instructions-button.png');
 
         let letterFont = '55px Chewy';
         let letterStyle = '#000000';
@@ -36,13 +38,18 @@ export class MenuState extends Phaser.State {
 
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'menu-background');
-        this.startButton = this.add.button(425, 425, 'menu-start-button', this.startGame, this);
+        this.startButton = this.add.button(425, 385, 'menu-start-button', this.startGame, this);
+        this.tutorialButton = this.add.button(490, 505, 'instructions-button', this.showTutorial, this);
         this.startButton.inputEnabled = false;
     }
 
     startGame() {
         localStorage.setItem('userName', this.userName);
         this.game.state.start('Game');
+    }
+
+    showTutorial() {
+        this.game.state.start('Tutorial');
     }
 
     addLetter(char, keyInfo) {
