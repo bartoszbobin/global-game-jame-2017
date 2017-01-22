@@ -106,6 +106,11 @@ export class NavalMineObstacle extends Obstacle {
     }
 
     protected handleContact(body) {
+        if (!body.sprite) {
+            console.debug('Obstacle - handleContact', 'missing body.sprite', body);
+            return;
+        }
+
         if (body.sprite.key === 'boat-paper') {
             body.sprite.addDamage(this.getDamagePower());
             this.blowUp();
