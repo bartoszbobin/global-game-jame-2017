@@ -88,10 +88,11 @@ export class WhirlpoolObstacle extends Obstacle {
         super.setupBody();
         this.p2Body.setCircle(20, 0, 0);
         this.scale.setTo(0.5);
+        this.alpha = 0.35;
     }
 
     update () {
-        this.p2Body.angle += 0.5;
+        this.p2Body.angle += 2.5;
     }
 
     protected loadPolygon(): void {
