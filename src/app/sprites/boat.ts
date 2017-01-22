@@ -18,7 +18,7 @@ export class Boat extends Phaser.Sprite {
         super(game, positionX, positionY, 'boat-paper');
 
         this.game = game;
-        this.anchor.setTo(0.5, 0.5);
+        this.anchor.setTo(0.5, 0);
         this.healthText = this.game.add.text(this.position.x, this.position.y, '', {
             font: '11px Chewy'
         });
@@ -93,7 +93,7 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().velocity.x = 0.5;
         this.getP2Body().velocity.y = 0.1;
         this.getP2Body().damping = .15;
-        this.getP2Body().setCircle(14, -5, -4);
+        this.getP2Body().setCircle(14, -4, -6);
     }
 
     handleContact(body) {
