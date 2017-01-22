@@ -1,0 +1,8 @@
+build/
+dist/
+node_modules/
+/typings/
+coverage/
+.idea/
+.DS_Store
+.vscode/
