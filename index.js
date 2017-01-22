@@ -131,72 +131,156 @@
 	        this.game = game;
 	        this.levels = [];
 	        // define levels
-	        this.levels =
-	            [
-	                {
-	                    value: new levels_builder_1.LevelBuilder(1, game)
-	                        .withPlayer(50, 50)
-	                        .withBoats([
-	                        { x: 200, y: 150 }
-	                    ])
-	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 320, 270, -10),
-	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
-	                        new obstacle_1.StickObstacle(_this.game, 370, 120, 90),
-	                        new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
-	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 404),
-	                        new obstacle_1.WhirlpoolObstacle(_this.game, 110, 210),
-	                        new obstacle_1.WoodObstacle(_this.game, 645, 270, 45),
-	                        new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
-	                        new obstacle_1.RockObstacle(_this.game, 320, 440, 10),
-	                        new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
-	                        new obstacle_1.RockObstacle(_this.game, 210, 430, 15),
-	                        new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
-	                        new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
-	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
-	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 530, 240, 0),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 490, 353, 0),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 560, 345, 0),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
-	                    ]; })
-	                        .withFinishZone({ x: 1150, y: 470 })
-	                },
-	                {
-	                    value: new levels_builder_1.LevelBuilder(2, game)
-	                        .withPlayer(640, 420)
-	                        .withBoats([
-	                        { x: 237, y: 538 },
-	                        { x: 195, y: 460 },
-	                    ])
-	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
-	                        new obstacle_1.StickObstacle(_this.game, 890, 120, 10),
-	                        new obstacle_1.StickObstacle(_this.game, 990, 140, 100),
-	                        new obstacle_1.StickObstacle(_this.game, 955, 240, 50),
-	                        new obstacle_1.StickObstacle(_this.game, 440, 110, -20),
-	                        new obstacle_1.StickObstacle(_this.game, 610, 195, -20),
-	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 400),
-	                        new obstacle_1.WhirlpoolObstacle(_this.game, 200, 180),
-	                        new obstacle_1.WoodObstacle(_this.game, 110, 510, 45),
-	                        new obstacle_1.WoodObstacle(_this.game, 260, 570, -20),
-	                        new obstacle_1.WoodObstacle(_this.game, 1190, 340, -250),
-	                        new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
-	                        new obstacle_1.RockObstacle(_this.game, 315, 440, 10),
-	                        new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
-	                        new obstacle_1.RockObstacle(_this.game, 310, 480, 15),
-	                        new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
-	                        new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
-	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
-	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
-	                        new obstacle_1.RockObstacle(_this.game, 680, 190, 20),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 330, 130, -10),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 1045, 345, 0),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
-	                    ]; })
-	                        .withFinishZone({ x: 1150, y: 550 })
-	                }
-	            ];
+	        this.levels = [
+	            {
+	                value: new levels_builder_1.LevelBuilder(1, game)
+	                    .withPlayer(50, 50)
+	                    .withBoats([
+	                    { x: 200, y: 150 }
+	                ])
+	                    .withObstacles(function () { return [
+	                    new obstacle_1.StickObstacle(_this.game, 320, 270, -10),
+	                    new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
+	                    new obstacle_1.StickObstacle(_this.game, 370, 120, 90),
+	                    new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
+	                    new obstacle_1.WhirlpoolObstacle(_this.game, 310, 404),
+	                    new obstacle_1.WhirlpoolObstacle(_this.game, 110, 210),
+	                    new obstacle_1.WoodObstacle(_this.game, 645, 270, 45),
+	                    new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
+	                    new obstacle_1.RockObstacle(_this.game, 320, 440, 10),
+	                    new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
+	                    new obstacle_1.RockObstacle(_this.game, 210, 430, 15),
+	                    new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
+	                    new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
+	                    new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                    new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 530, 240, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 490, 353, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 560, 345, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
+	                ]; })
+	                    .withFinishZone({ x: 1150, y: 470 })
+	            },
+	            {
+	                value: new levels_builder_1.LevelBuilder(2, game)
+	                    .withPlayer(640, 420)
+	                    .withBoats([
+	                    { x: 237, y: 538 },
+	                    { x: 195, y: 460 },
+	                ])
+	                    .withObstacles(function () { return [
+	                    new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
+	                    new obstacle_1.StickObstacle(_this.game, 890, 120, 10),
+	                    new obstacle_1.StickObstacle(_this.game, 990, 140, 100),
+	                    new obstacle_1.StickObstacle(_this.game, 955, 240, 50),
+	                    new obstacle_1.StickObstacle(_this.game, 440, 110, -20),
+	                    new obstacle_1.StickObstacle(_this.game, 610, 195, -20),
+	                    new obstacle_1.WhirlpoolObstacle(_this.game, 310, 400),
+	                    new obstacle_1.WhirlpoolObstacle(_this.game, 200, 180),
+	                    new obstacle_1.WoodObstacle(_this.game, 110, 510, 45),
+	                    new obstacle_1.WoodObstacle(_this.game, 260, 570, -20),
+	                    new obstacle_1.WoodObstacle(_this.game, 1190, 340, -250),
+	                    new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
+	                    new obstacle_1.RockObstacle(_this.game, 315, 440, 10),
+	                    new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
+	                    new obstacle_1.RockObstacle(_this.game, 310, 480, 15),
+	                    new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
+	                    new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
+	                    new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                    new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                    new obstacle_1.RockObstacle(_this.game, 680, 190, 20),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 330, 130, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1045, 345, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
+	                ]; })
+	                    .withFinishZone({ x: 1150, y: 550 })
+	            },
+	            {
+	                value: new levels_builder_1.LevelBuilder(3, game)
+	                    .withPlayer(570, 50)
+	                    .withBoats([
+	                    { x: 195, y: 500 }
+	                ])
+	                    .withObstacles(function () { return [
+	                    /* MINES */
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 150, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 250, 500, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 100, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 150, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 350, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 450, 500, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 150, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 550, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 500, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 650, 550, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 100, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 150, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 750, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 500, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 850, 550, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 100, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 150, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 950, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 200, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 250, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 300, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 350, -10),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 400, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 450, 0),
+	                    new obstacle_1.NavalMineObstacle(_this.game, 1050, 500, 0)
+	                ]; })
+	                    .withFinishZone({ x: 1180, y: 300 })
+	            }
+	        ];
 	    }
 	    Object.defineProperty(LevelsManager.prototype, "activeLevel", {
 	        get: function () {
@@ -1481,7 +1565,7 @@
 	        this.levelsManager = new levels_manager_1.LevelsManager(this.game);
 	        this.level = this.levelsManager.activeLevel;
 	        this.addPlayer(this.level.playerPosition);
-	        // this.addMouseInfo();
+	        this.addMouseInfo();
 	        this.addPowerMeter();
 	        this.addRockSprite();
 	        this.addPlayerInfo();
@@ -1497,7 +1581,7 @@
 	        }
 	        this.handlePlayerRotation();
 	        this.handleRockHitting();
-	        // this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
+	        this.mouseInfo.text = "(" + this.mousePointer.x + ", " + this.mousePointer.y + ")";
 	        if (this.hitPower) {
 	            // this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
 	            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
@@ -1551,13 +1635,13 @@
 	        this.player = new player_1.Player(this.game, position.x, position.y);
 	        this.game.add.existing(this.player);
 	    };
-	    // private addMouseInfo() {
-	    //     this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
-	    //     this.mouseInfo.font = 'Chewy';
-	    //     this.mouseInfo.fontSize = 14;
-	    //     this.mouseInfo.fill = '#000000';
-	    //     this.mouseInfo.anchor.setTo(0);
-	    // }
+	    GameState.prototype.addMouseInfo = function () {
+	        this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
+	        this.mouseInfo.font = 'Chewy';
+	        this.mouseInfo.fontSize = 14;
+	        this.mouseInfo.fill = '#000000';
+	        this.mouseInfo.anchor.setTo(0);
+	    };
 	    GameState.prototype.addRockSprite = function () {
 	        this.rockSprite = new rock_1.Rock(this.game, this.player);
 	        this.game.add.existing(this.rockSprite);
@@ -1836,6 +1920,7 @@
 	        this.load.image('boat-paper', 'assets/images/boat-paper.png');
 	        this.load.image('levels/level-1', 'assets/levels/level-01.png');
 	        this.load.image('levels/level-2', 'assets/levels/level-02.png');
+	        this.load.image('levels/level-3', 'assets/levels/level-03.png');
 	        this.load.image('stick', 'assets/images/stick.png');
 	        this.load.image('wood', 'assets/images/wood.png');
 	        this.load.image('rock-obstacle', 'assets/images/rock-obstacle.png');
@@ -1845,6 +1930,7 @@
 	        this.load.image('whirlpool', 'assets/images/whirlpool.png');
 	        this.load.physics('levelPhysics-1', 'assets/levels/level-physics.json');
 	        this.load.physics('levelPhysics-2', 'assets/levels/level-2-physics.json');
+	        this.load.physics('levelPhysics-3', 'assets/levels/level-3-physics.json');
 	        this.load.physics('boatPhysics', 'assets/images/boat-physics.json');
 	        this.load.physics('stickPhysics', 'assets/images/stick-physics.json');
 	        this.load.physics('woodPhysics', 'assets/images/wood-physics.json');
