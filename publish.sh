@@ -12,7 +12,8 @@ npm run build;
 
 cd $gh_pages_repo;
 cp -r $base_repo/dist/** .;
-git ci -am 'new version';
+git add -A;
+git ci -m 'new version';
 git push;
 
 cd $actual_dir
