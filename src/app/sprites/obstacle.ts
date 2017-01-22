@@ -27,7 +27,7 @@ export class Obstacle extends Phaser.Sprite {
     }
 
     protected handleContact(body) {
-        if (body.sprite.key === 'boat-paper') {
+        if (body && body.sprite.key === 'boat-paper') {
             body.sprite.addDamage(this.getDamagePower());
         }
     }
@@ -106,6 +106,11 @@ export class NavalMineObstacle extends Obstacle {
     }
 
     protected handleContact(body) {
+        if (!body.sprite) {
+            console.debug('Obstacle - handleContact', 'missing body.sprite', body);
+            return;
+        }
+
         if (body.sprite.key === 'boat-paper') {
             body.sprite.addDamage(this.getDamagePower());
             this.blowUp();

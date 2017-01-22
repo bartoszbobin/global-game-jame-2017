@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import * as WebFont from 'webfontloader';
 
-type UserScore  = {
+type UserScore = {
     userName: string,
     score: number;
 }
@@ -15,8 +15,11 @@ export class BootState extends Phaser.State {
         this.fontsReady = false;
         this.fontsLoaded = this.fontsLoaded.bind(this);
 
-        let highScore = [] as UserScore[];
-        localStorage.setItem('highScore', JSON.stringify(highScore));
+        let highScore: UserScore[] = [];
+        const highScoreKey = 'highScore';
+        if (!localStorage.getItem(highScoreKey)) {
+            localStorage.setItem(highScoreKey, JSON.stringify(highScore));
+        }
     }
 
     preload() {

@@ -1,6 +1,7 @@
 import {LevelBuilder} from './levels-builder';
 import {LevelBase} from './level-base';
 import {StickObstacle, RocksGroupObstacle, RockObstacle, WoodObstacle, NavalMineObstacle} from '../sprites/obstacle';
+import {ScoreManager} from '../data/score-manager';
 
 export class LevelsManager {
     private static activeLevelIndex: number = 0;
@@ -73,10 +74,8 @@ export class LevelsManager {
     }
 
     private finishGame() {
-        let highScore = JSON.parse(localStorage.getItem('highScore'));
-        highScore.push({ userName: localStorage.getItem('userName'), score: localStorage.getItem('usedRocks') });
-        highScore.sort((a, b) => a.score - b.score);
-        let hs = highScore.slice(0, 10);
-        localStorage.setItem('highScore', JSON.stringify(hs));
+        ScoreManager.saveScore(ScoreManager.actualScore);
+        ScoreManager.actualScore = 0;
+        this.game.state.start('HighScore');
     }
 }

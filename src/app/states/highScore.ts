@@ -23,7 +23,11 @@ export class HighScoreState extends Phaser.State {
     }
 
     private showHighScore() {
+
         let scoreBoard = JSON.parse(localStorage.getItem('highScore'));
+        scoreBoard.sort((a, b) => a.score - b.score);
+        scoreBoard = scoreBoard.slice(0, 10);
+
         let scoreBoardText = '';
         let scoreBoardScore = '';
         let i = 1;
