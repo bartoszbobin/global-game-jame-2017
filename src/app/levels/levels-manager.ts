@@ -95,6 +95,7 @@ export class LevelsManager {
         let nextLevelIndex = LevelsManager.activeLevelIndex + 1;
         this.activeLevel.destroy();
         this._activeLevel = null;
+        ScoreManager.actualScore = 0;
 
         LevelsManager.activeLevelIndex = 0;
     }
