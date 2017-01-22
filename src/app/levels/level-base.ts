@@ -46,13 +46,13 @@ export class LevelBase extends Phaser.Sprite {
 
     private addFinishZone(finishZone: FinishZone) {
         this.game.add.existing(finishZone);
-        this.game.physics.p2.enable(finishZone, true);
+        this.game.physics.p2.enable(finishZone);
         finishZone.setupBody();
     }
 
     private moveBoatsToTop() {
         if (this.boats && this.boats.length) {
-            for(let boat of this.boats) {
+            for (let boat of this.boats) {
                 this.game.world.bringToTop(boat);
             }
         }
