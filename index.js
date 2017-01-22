@@ -135,11 +135,12 @@
 	            [
 	                {
 	                    value: new levels_builder_1.LevelBuilder(1, game)
+	                        .withPlayer(50, 50)
 	                        .withBoats([
 	                        { x: 200, y: 150 }
 	                    ])
 	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 320, 270. - 10),
+	                        new obstacle_1.StickObstacle(_this.game, 320, 270, -10),
 	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
 	                        new obstacle_1.StickObstacle(_this.game, 370, 120, 90),
 	                        new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
@@ -163,12 +164,33 @@
 	                },
 	                {
 	                    value: new levels_builder_1.LevelBuilder(2, game)
+	                        .withPlayer(640, 470)
 	                        .withBoats([
-	                        { x: 237, y: 288 },
-	                        { x: 983, y: 430 },
+	                        { x: 237, y: 538 },
+	                        { x: 195, y: 460 },
 	                    ])
 	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 983, 430),
+	                        new obstacle_1.StickObstacle(_this.game, 320, 270. - 10),
+	                        new obstacle_1.StickObstacle(_this.game, 120, 350, -85),
+	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
+	                        new obstacle_1.StickObstacle(_this.game, 970, 150, 90),
+	                        new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
+	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 400),
+	                        new obstacle_1.WhirlpoolObstacle(_this.game, 200, 180),
+	                        new obstacle_1.WoodObstacle(_this.game, 110, 510, 45),
+	                        new obstacle_1.WoodObstacle(_this.game, 260, 570, -20),
+	                        new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
+	                        new obstacle_1.RockObstacle(_this.game, 320, 440, 10),
+	                        new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
+	                        new obstacle_1.RockObstacle(_this.game, 310, 480, 15),
+	                        new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
+	                        new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
+	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                        new obstacle_1.NavalMineObstacle(_this.game, 330, 130, -10),
+	                        new obstacle_1.NavalMineObstacle(_this.game, 490, 353, 0),
+	                        new obstacle_1.NavalMineObstacle(_this.game, 1045, 345, 0),
+	                        new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
 	                    ]; })
 	                        .withFinishZone({ x: 1150, y: 550 })
 	                }
@@ -642,9 +664,10 @@
 	var global_1 = __webpack_require__(2);
 	var LevelBase = (function (_super) {
 	    __extends(LevelBase, _super);
-	    function LevelBase(levelNumber, boats, obstacles, finishZone, game) {
+	    function LevelBase(levelNumber, playerPosition, boats, obstacles, finishZone, game) {
 	        _super.call(this, game, 0, 0, "levels/level-" + levelNumber);
 	        this.levelNumber = levelNumber;
+	        this.playerPosition = playerPosition;
 	        this.boats = boats;
 	        this.obstacles = obstacles;
 	        this.game = game;
@@ -712,6 +735,10 @@
 	        this.game = game;
 	        this.boatsPositions = [];
 	    }
+	    LevelBuilder.prototype.withPlayer = function (x, y) {
+	        this.playerPosition = new Phaser.Point(x, y);
+	        return this;
+	    };
 	    LevelBuilder.prototype.withBoats = function (boatsPositions) {
 	        this.boatsPositions = boatsPositions;
 	        return this;
@@ -734,7 +761,7 @@
 	            return boat;
 	        });
 	        var obstacles = this.obstaclesDefinition();
-	        return new level_base_1.LevelBase(this.levelNumber, boats, obstacles, this.finishZone, this.game);
+	        return new level_base_1.LevelBase(this.levelNumber, this.playerPosition, boats, obstacles, this.finishZone, this.game);
 	    };
 	    return LevelBuilder;
 	}());
@@ -1450,7 +1477,7 @@
 	    GameState.prototype.create = function () {
 	        this.levelsManager = new levels_manager_1.LevelsManager(this.game);
 	        this.level = this.levelsManager.activeLevel;
-	        this.addPlayer();
+	        this.addPlayer(this.level.playerPosition);
 	        this.addMouseInfo();
 	        this.addPowerMeter();
 	        this.addRockSprite();
@@ -1517,8 +1544,8 @@
 	        var angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
 	        this.player.setAngleInDeg(angleInDeg);
 	    };
-	    GameState.prototype.addPlayer = function () {
-	        this.player = new player_1.Player(this.game, 50, 50);
+	    GameState.prototype.addPlayer = function (position) {
+	        this.player = new player_1.Player(this.game, position.x, position.y);
 	        this.game.add.existing(this.player);
 	    };
 	    GameState.prototype.addMouseInfo = function () {
@@ -1613,8 +1640,6 @@
 	    function GameOverState() {
 	        _super.apply(this, arguments);
 	    }
-	    GameOverState.prototype.init = function () {
-	    };
 	    GameOverState.prototype.preload = function () {
 	        this.load.image('restart-button', './assets/images/restart-button.png');
 	        this.load.image('gameOver-background', './assets/images/gameOver-background.png');
@@ -1649,8 +1674,6 @@
 	    function HighScoreState() {
 	        _super.apply(this, arguments);
 	    }
-	    HighScoreState.prototype.init = function () {
-	    };
 	    HighScoreState.prototype.preload = function () {
 	        this.load.image('restart-button', './assets/images/restart-button.png');
 	        this.load.image('highscore-background', './assets/images/highscore-background.png');
@@ -1741,7 +1764,7 @@
 	    MenuState.prototype.removeLetterOnBackspacePress = function () {
 	        var _this = this;
 	        var backspaceKeyCode = 8;
-	        document.addEventListener("keydown", function (e) {
+	        document.addEventListener('keydown', function (e) {
 	            if (_this.userName.length && e.keyCode === backspaceKeyCode) {
 	                _this.userName = _this.userName.substr(0, _this.userName.length - 1);
 	                _this.userNameText.setText(_this.userName);
@@ -1753,7 +1776,7 @@
 	        this.game.state.start('Tutorial1');
 	    };
 	    MenuState.prototype.addLetter = function (char, keyInfo) {
-	        if (keyInfo.code === "Space" || (keyInfo.code === 'Enter' && this.userName.length < 3)) {
+	        if (keyInfo.code === 'Space' || (keyInfo.code === 'Enter' && this.userName.length < 3)) {
 	            return false;
 	        }
 	        if (this.userName.length < 3) {
@@ -1848,8 +1871,6 @@
 	    function Tutorial1State() {
 	        _super.apply(this, arguments);
 	    }
-	    Tutorial1State.prototype.init = function () {
-	    };
 	    Tutorial1State.prototype.preload = function () {
 	        this.load.image('tutorial1-background', './assets/images/tutorial01.png');
 	        this.load.image('exit-tutorial-button', './assets/images/tutorial-button-exit.png');
@@ -1887,8 +1908,6 @@
 	    function Tutorial2State() {
 	        _super.apply(this, arguments);
 	    }
-	    Tutorial2State.prototype.init = function () {
-	    };
 	    Tutorial2State.prototype.preload = function () {
 	        this.load.image('tutorial1-background', './assets/images/tutorial02.png');
 	        this.load.image('exit-tutorial-button', './assets/images/tutorial-button-exit.png');
