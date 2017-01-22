@@ -17,10 +17,14 @@ export class Tutorial1State extends Phaser.State {
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'tutorial1-background');
         this.exitButton = this.add.button(30, 500, 'exit-tutorial-button', this.backToMenu, this).scale.setTo(0.5);
-        this.exitButton = this.add.button(this.game.width - 280, 500, 'next-tutorial-button', this.backToMenu, this).scale.setTo(0.5);     
+        this.exitButton = this.add.button(this.game.width - 280, 500, 'next-tutorial-button', this.showTutorial2Page, this).scale.setTo(0.5);     
     }
 
     backToMenu(){
         this.game.state.start('Menu');
+    }
+
+    showTutorial2Page(){
+        this.game.state.start('Tutorial2');
     }
 }

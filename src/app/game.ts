@@ -9,6 +9,7 @@ import {MenuState} from './states/menu';
 import {GameOverState} from './states/gameOver';
 import {HighScoreState} from './states/highScore';
 import {Tutorial1State} from './states/tutorial1';
+import {Tutorial2State} from './states/tutorial2';
 
 export class Game extends Phaser.Game {
     constructor() {
@@ -24,6 +25,7 @@ export class Game extends Phaser.Game {
         this.state.add('GameOver', GameOverState, false);
         this.state.add('HighScore', HighScoreState, false);
         this.state.add('Tutorial1', Tutorial1State, false);
+        this.state.add('Tutorial2', Tutorial2State, false);
 
         this.state.start('Boot');
     }
