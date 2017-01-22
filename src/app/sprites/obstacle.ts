@@ -123,6 +123,10 @@ export class NavalMineObstacle extends Obstacle {
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
         this.p2Body.setCircle(this.polygonRadius, 0, 0);
+
+        this.p2Body.setZeroVelocity();
+        this.p2Body.setZeroForce();
+        this.p2Body.setZeroDamping();
     }
 
     public blowUp() {
