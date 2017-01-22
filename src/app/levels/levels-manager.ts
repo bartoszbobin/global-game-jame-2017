@@ -28,7 +28,8 @@ export class LevelsManager {
                 {
                     value: new LevelBuilder(1, game)
                         .withBoats([
-                            { x: 200, y: 150 }
+                            // { x: 200, y: 150 }
+                            { x: 1120, y: 460 }
                         ])
                         .withObstacles(() => [
                             new StickObstacle(this.game, 320, 270. -10),
@@ -56,11 +57,31 @@ export class LevelsManager {
                 {
                     value: new LevelBuilder(2, game)
                         .withBoats([
-                            { x: 237, y: 288 },
-                            { x: 983, y: 430 },
+                            { x: 237, y: 538 },
+                            { x: 195, y: 460 },
                         ])
                         .withObstacles(() => [
-                            new StickObstacle(this.game, 983, 430),
+                            new StickObstacle(this.game, 320, 270. -10),
+                            new StickObstacle(this.game, 120, 350, -85),
+                            new StickObstacle(this.game, 200, 300, -45),
+                            new StickObstacle(this.game, 970, 150, 90),
+                            new StickObstacle(this.game, 420, 190, -20),
+                            new WhirlpoolObstacle(this.game, 310, 400),
+                            new WhirlpoolObstacle(this.game, 200, 180),
+                            new WoodObstacle(this.game, 110, 510, 45),
+                            new WoodObstacle(this.game, 260, 570, -20),
+                            new RockObstacle(this.game, 200, 30, -15),
+                            new RockObstacle(this.game, 320, 440, 10),
+                            new RockObstacle(this.game, 280, 445, 180),
+                            new RockObstacle(this.game, 310, 480, 15),
+                            new RockObstacle(this.game, 800, 300, -15),
+                            new RockObstacle(this.game, 900, 460, 45),
+                            new RockObstacle(this.game, 720, 500, 0),
+                            new RockObstacle(this.game, 720, 500, 0),
+                            new NavalMineObstacle(this.game, 330, 130, -10),
+                            new NavalMineObstacle(this.game, 490, 353, 0),
+                            new NavalMineObstacle(this.game, 1045, 345, 0),
+                            new NavalMineObstacle(this.game, 500, 210, 0),
                         ])
                         .withFinishZone({ x: 1150, y: 550 })
                 }
