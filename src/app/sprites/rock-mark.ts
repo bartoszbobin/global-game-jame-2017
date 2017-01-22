@@ -6,7 +6,9 @@ import {WaterWave} from './water-wave';
 import {ENABLE_POLYGONS} from '../../index';
 
 export class RockMark extends Phaser.Sprite {
-    private static WAVE_OFFSET = 20;
+    private static WAVE_OFFSET = 21;
+    private static WAVE_SCALE_FACTOR = 0.01;
+    private static ALPHA_SCALE_FACTOR = 0.01;
 
     private radius : number = 5;
     private power: number;
@@ -37,7 +39,7 @@ export class RockMark extends Phaser.Sprite {
         this.updateCircles();
         this.getP2Body().mass = 10;
         this.getP2Body().static = true;
-console.debug('hit', <any> this.getP2Body().rotation);
+
         this.game.add.tween(this)
             .to({}, 1000, () => this.updateCircles())
             .start().onComplete.addOnce(() => {
@@ -56,20 +58,20 @@ console.debug('hit', <any> this.getP2Body().rotation);
     }
 
     private updateCircles() : void {
-        let factor = (this.power / (1.2 * HitPower.MAX_HOLD_TIME / 10));
+        let factor = (this.power / (1.3 * HitPower.MAX_HOLD_TIME / 10));
         this.counter ++;
 
         if (this.counter === 1 || this.counter % RockMark.WAVE_OFFSET === 0) {
             let waterWave = new WaterWave(this.game, this.position.x, this.position.y);
-            waterWave.alpha = 1;
+            waterWave.alpha = 0.85;
             waterWave.scale.setTo(0.1);
             this.waterWaves.add(waterWave);
             this.circles.push(waterWave);
         }
 
         for (const circle of this.circles) {
-            circle.scale.setTo(circle.scale.x + 0.01);
-            circle.alpha -= 0.01;
+            circle.scale.setTo(circle.scale.x + RockMark.WAVE_SCALE_FACTOR);
+            circle.alpha -= RockMark.ALPHA_SCALE_FACTOR;
         }
 
         this.getP2Body().setCircle(this.radius++ * factor);
@@ -81,8 +83,8 @@ console.debug('hit', <any> this.getP2Body().rotation);
             if (!circle.alpha) {
                 continue;
             }
-            circle.scale.setTo(circle.scale.x + 0.01);
-            circle.alpha -= 0.01;
+            circle.scale.setTo(circle.scale.x + RockMark.WAVE_SCALE_FACTOR);
+            circle.alpha -= RockMark.ALPHA_SCALE_FACTOR;
 
             if (circle.alpha > 0) {
                 everyCircleInvisible = false;

@@ -26,7 +26,7 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.angle = this.rotationInArcs;
         this.p2Body.velocity.x = 0.1;
         this.p2Body.velocity.y = 0.1;
-        this.p2Body.damping = 0.75;
+        this.p2Body.damping = 0.45;
         this.loadPolygon();
     }
 
@@ -107,6 +107,7 @@ export class NavalMineObstacle extends Obstacle {
 
     setupBody(): void {
         super.setupBody();
+        this.p2Body.setCircle(this.polygonRadius, 0, 0);
     }
 
     protected handleContact(body) {
@@ -131,7 +132,7 @@ export class NavalMineObstacle extends Obstacle {
     protected loadPolygon(): void {
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
-        this.p2Body.setCircle(this.polygonRadius, 0, 0);
+
 
         this.p2Body.setZeroVelocity();
         this.p2Body.setZeroForce();
