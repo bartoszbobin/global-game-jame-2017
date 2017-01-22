@@ -80,6 +80,8 @@ export class Boat extends Phaser.Sprite {
         this.updateHealthText();
         if (this.health <= 0) {
             this.startSinkingAnimation();
+        } else {
+            this.startWoundedAnimation();
         }
     }
 
@@ -123,5 +125,13 @@ export class Boat extends Phaser.Sprite {
         this.game.add.tween(this)
             .to({alpha: 0}, 500)
             .start();
+    }
+
+    private startWoundedAnimation() {
+        this.game.add.tween(this)
+            .to({alpha: 0.5}, 150)
+            .yoyo(true)
+            .repeat(1)
+            .start().onComplete.addOnce(() => this.game.add.tween(this).to({alpha: 1}, 150).start());
     }
 }
