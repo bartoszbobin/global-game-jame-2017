@@ -216,6 +216,7 @@
 	        var nextLevelIndex = LevelsManager.activeLevelIndex + 1;
 	        this.activeLevel.destroy();
 	        this._activeLevel = null;
+	        score_manager_1.ScoreManager.actualScore = 0;
 	        LevelsManager.activeLevelIndex = 0;
 	    };
 	    LevelsManager.prototype.goToNext = function () {
