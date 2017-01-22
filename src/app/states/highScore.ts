@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 
 export class HighScoreState extends Phaser.State {
     private highScore: Phaser.Text;
+    private highScoreResults: Phaser.Text;
 
     init() {
     }
@@ -25,15 +26,28 @@ export class HighScoreState extends Phaser.State {
     private showHighScore() {
         let scoreBoard = JSON.parse(localStorage.getItem('highScore'));
         let scoreBoardText = '';
-        scoreBoard.sort;
+        let scoreBoardScore = '';
+        let i = 1;
 
         for (let scoreItem of scoreBoard) {
-            scoreBoardText += scoreItem.userName + '          ' + scoreItem.score + '\n' ;         
+            scoreBoardText += i.toString() + '. ' + scoreItem.userName + '\n' ;    
+            i++;     
         }
 
-        this.highScore = this.add.text(750, 50, scoreBoardText, {});
+        for (let scoreItem of scoreBoard) {
+            scoreBoardScore += scoreItem.score + '\n' ;    
+        }
+
+        this.highScore = this.add.text(650, 15, scoreBoardText, {});
 
         this.highScore.font = 'Chewy';
-        this.highScore.fontSize = 40;       
+        this.highScore.fill = '#BBFF00';
+        this.highScore.fontSize = 40;    
+
+        this.highScoreResults = this.add.text(950, 15, scoreBoardScore, {});
+
+        this.highScoreResults.font = 'Chewy';
+        this.highScoreResults.fill = '#BBFF00';
+        this.highScoreResults.fontSize = 40;    
     }
 }

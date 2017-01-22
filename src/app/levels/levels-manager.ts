@@ -75,8 +75,8 @@ export class LevelsManager {
     private finishGame() {
         let highScore = JSON.parse(localStorage.getItem('highScore'));
         highScore.push({ userName: localStorage.getItem('userName'), score: localStorage.getItem('usedRocks') });
-        localStorage.setItem('highScore', JSON.stringify(highScore));
-
-        this.game.state.start('HighScore');
+        highScore.sort((a, b) => a.score - b.score);
+        let hs = highScore.slice(0, 10);
+        localStorage.setItem('highScore', JSON.stringify(hs));
     }
 }
