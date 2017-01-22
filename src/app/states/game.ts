@@ -38,7 +38,7 @@ export class GameState extends Phaser.State {
         this.levelsManager = new LevelsManager(this.game);
         this.level = this.levelsManager.activeLevel;
 
-        this.addPlayer();
+        this.addPlayer(this.level.playerPosition);
         this.addMouseInfo();
         this.addPowerMeter();
         this.addRockSprite();
@@ -112,8 +112,8 @@ export class GameState extends Phaser.State {
         this.player.setAngleInDeg(angleInDeg);
     }
 
-    private addPlayer() {
-        this.player = new Player(this.game, 50, 50);
+    private addPlayer(position : Phaser.Point) {
+        this.player = new Player(this.game, position.x, position.y);
         this.game.add.existing(this.player);
     }
 
