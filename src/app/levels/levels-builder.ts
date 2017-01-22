@@ -5,7 +5,7 @@ import {LevelBase} from './level-base';
 
 export class LevelBuilder {
     private boatsPositions: { x: number, y: number }[] = [];
-    private obstacles: Obstacle[] = [];
+    private obstaclesDefinition: () => Obstacle[];
     private finishZone: FinishZone;
 
     constructor(private levelNumber: number, private game: Phaser.Game) {
@@ -16,8 +16,8 @@ export class LevelBuilder {
         return this;
     }
 
-    withObstacles(obstacles: Obstacle[]): LevelBuilder {
-        this.obstacles = obstacles;
+    withObstacles(obstaclesDefinition: () => Obstacle[]): LevelBuilder {
+        this.obstaclesDefinition = obstaclesDefinition;
 
         return this;
     }
@@ -33,13 +33,15 @@ export class LevelBuilder {
             const boat = new Boat(this.game, dim.x, dim.y);
 
             this.game.add.existing(boat);
-            this.game.physics.p2.enable(boat, true);
+            this.game.physics.p2.enable(boat);
 
             boat.setupBody();
 
             return boat;
         });
 
-        return new LevelBase(this.levelNumber, boats, this.obstacles, this.finishZone, this.game);
+        let obstacles = this.obstaclesDefinition();
+
+        return new LevelBase(this.levelNumber, boats, obstacles, this.finishZone, this.game);
     }
 }
