@@ -8,11 +8,11 @@ actual_dir=${PWD}
 
 cd $base_repo;
 git pull; 
-npm run build; 
+npm run build;
 
-cd $gh_pages_repo; 
-cp -r $base_repo/dist/** .; 
-git ci -am 'new version'; 
+cd $gh_pages_repo;
+cp -r $base_repo/dist/** .;
+git ci -am 'new version';
 git push;
 
 cd $actual_dir
