@@ -5,6 +5,7 @@ export class PowerMeter extends Phaser.Sprite {
         super(game, 35, 50, 'power-meter');
         this.game = game;
         this.anchor.setTo(0, 0);
+        this.alpha = 0.9;
 
         this.cropRect = new Phaser.Rectangle(0, 35, 50, 50);
         this.updateCrop();
@@ -25,6 +26,7 @@ export class PowerMeterBg extends Phaser.Sprite {
         this.game = game;
         this.anchor.setTo(0, 0);
         this.scale.setTo(0);
+        this.alpha = 0.3;
     }
 
     setPosition(x, y, power) {
