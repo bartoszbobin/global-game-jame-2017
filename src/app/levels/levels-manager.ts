@@ -29,14 +29,23 @@ export class LevelsManager {
                         ])
                         .withObstacles(() => [
                             new StickObstacle(this.game, 300, 300),
-                            new StickObstacle(this.game, 390, 120, 90),
-                            new WoodObstacle(this.game, 645, 280, 45),
-                            new RockObstacle(this.game, 250, 440, 45),
+                            new StickObstacle(this.game, 200, 300, -45),
+                            new StickObstacle(this.game, 370, 120, 90),
+                            new StickObstacle(this.game, 420, 190, -20),
+                            new WoodObstacle(this.game, 645, 270, 45),
+                            new RockObstacle(this.game, 200, 30, -15),
+                            new RockObstacle(this.game, 320, 440, 10),
+                            new RockObstacle(this.game, 280, 445, 180),
+                            new RockObstacle(this.game, 210, 430, 15),
+                            new RockObstacle(this.game, 800, 300, -15),
+                            new RockObstacle(this.game, 900, 460, 45),
+                            new RockObstacle(this.game, 720, 500, 0),
                             new RockObstacle(this.game, 720, 500, 0),
                             new NavalMineObstacle(this.game, 530, 240, 0),
-                            new NavalMineObstacle(this.game, 510, 353, 0),
-                            new NavalMineObstacle(this.game, 588, 314, 0),
-                            new NavalMineObstacle(this.game, 500, 210, 0)
+                            new NavalMineObstacle(this.game, 490, 353, 0),
+                            new NavalMineObstacle(this.game, 560, 345, 0)
+                            // new NavalMineObstacle(this.game, 588, 314, 0),
+                            // new NavalMineObstacle(this.game, 500, 210, 0)
                         ])
                         .withFinishZone({ x: 1150, y: 470 })
                 },

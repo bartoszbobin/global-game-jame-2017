@@ -68,6 +68,8 @@ export class MenuState extends Phaser.State {
 
             if (this.userName.length === 3) {
                  this.startButton.inputEnabled = true;
+            } else {
+                this.startButton.inputEnabled = false;
             }
         }
 
