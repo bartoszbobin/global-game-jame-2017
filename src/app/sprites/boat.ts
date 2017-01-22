@@ -52,6 +52,24 @@ export class Boat extends Phaser.Sprite {
             .start();
     }
 
+    public whirlpool() : void {
+
+        this.getP2Body().clearShapes();
+        this.getP2Body().static = true;
+
+        this.getP2Body().setZeroDamping();
+        this.getP2Body().setZeroRotation();
+
+        this.game.add.tween(this.healthText)
+            .to({ alpha: 0 }, 250)
+            .start()
+            .onComplete.addOnce(() => this.healthText.destroy());
+
+        this.game.add.tween(this)
+            .to({ alpha: 0 }, 1000)
+            .start().onComplete.addOnce(() => this.health = 0);
+    }
+
     public isDead() {
         return this.health <= 0;
     }
@@ -93,7 +111,7 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().velocity.x = 0.5;
         this.getP2Body().velocity.y = 0.1;
         this.getP2Body().damping = .15;
-        this.getP2Body().setCircle(14, -4, -6);
+        this.getP2Body().setCircle(12, -3, -8);
     }
 
     handleContact(body) {
@@ -101,7 +119,6 @@ export class Boat extends Phaser.Sprite {
         if (body.sprite.key === 'finish-zone') {
             console.log('level completed');
         }
-        this.game.add.graphics(1, 2);
     }
 
     getP2Body() : Phaser.Physics.P2.Body {

@@ -26,7 +26,7 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.angle = this.rotationInArcs;
         this.p2Body.velocity.x = 0.1;
         this.p2Body.velocity.y = 0.1;
-        this.p2Body.damping = 0.75;
+        this.p2Body.damping = 0.45;
         this.loadPolygon();
     }
 
@@ -79,6 +79,42 @@ export class RockObstacle extends Obstacle {
     }
 }
 
+export class WhirlpoolObstacle extends Obstacle {
+    constructor(game: Phaser.Game, positionX: number, positionY: number) {
+        super(game, 'whirlpool', positionX, positionY, 0);
+    }
+
+    setupBody(): void {
+        super.setupBody();
+        this.p2Body.setCircle(20, 0, 0);
+        this.scale.setTo(0.5);
+    }
+
+    update () {
+        this.p2Body.angle += 0.5;
+    }
+
+    protected loadPolygon(): void {
+        this.p2Body.mass = 3000;
+
+        this.p2Body.setZeroVelocity();
+        this.p2Body.setZeroForce();
+        this.p2Body.setZeroDamping();
+        this.p2Body.static = true;
+    }
+
+    protected handleContact(body) {
+        if (!body.sprite) {
+            console.debug('WhirlpoolObstacle - handleContact', 'missing body.sprite', body);
+            return;
+        }
+
+        if (body.sprite.key === 'boat-paper') {
+            (<Boat> body.sprite).whirlpool();
+        }
+    }
+}
+
 export class NavalMineObstacle extends Obstacle {
     private static ROTATION_DEG_FACTOR = Phaser.Math.degToRad(0.15);
     private static MAX_ROTATE_ANGLE = 25;
@@ -107,6 +143,7 @@ export class NavalMineObstacle extends Obstacle {
 
     setupBody(): void {
         super.setupBody();
+        this.p2Body.setCircle(this.polygonRadius, 0, 0);
     }
 
     protected handleContact(body) {
@@ -131,8 +168,6 @@ export class NavalMineObstacle extends Obstacle {
     protected loadPolygon(): void {
         this.p2Body.mass = 3000;
         this.p2Body.rotation = Phaser.Math.degToRad(getRandomInt(-NavalMineObstacle.MAX_ROTATE_ANGLE, NavalMineObstacle.MAX_ROTATE_ANGLE));
-        this.p2Body.setCircle(this.polygonRadius, 0, 0);
-
         this.p2Body.setZeroVelocity();
         this.p2Body.setZeroForce();
         this.p2Body.setZeroDamping();
