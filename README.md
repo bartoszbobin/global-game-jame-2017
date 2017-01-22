@@ -1,47 +1,25 @@
-# Phaser skeleton w/ TypeScript and WebPack
+# Trip to San Escobar
 
-##About
+## Description
+Game based on annual event in San Escobar, a small country located to the south of Mexico and Westeros. In the past, children in San Escobar were writing numerous letter prayers to saint Pablo Escobar, who helped a lot of people during his lifetime. Letters were then fold into small boats and put on main river, Rio Mojito. Children often throw rocks to push boats further to help them reach main current. It was believed, that saint Escobar were often walking on the river surface and read all the prayers. Nowadays, paper boat championships are a well known national tradition in San Escobar. They are organized once a year, during summer. People gather near Rio Mojito, throwing rocks near paper boats to push them as close to picked destination as its possible. 
 
-A simple example using Phaser with TypeScript and WebPack. 
+![Logo](/doc/logo.png)
 
-Based on [lean/phaser-es6-webpack](https://github.com/lean/phaser-es6-webpack) and [the-simian/slush-phaser-webpack](https://github.com/the-simian/slush-phaser-webpack) and also [AngularClass/angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter).
+![team](/doc/team.jpg)
 
-This is a fork of [mgiambalvo/phaser-typescript-webpack-starter](https://github.com/mgiambalvo/phaser-typescript-webpack-starter) to add npm commands below and karma test framework.
+## How to play: 
 
-##Setup
+1. Click on a water to throw a rock. Hold click to add more power.
+1. Thrown rock makes waves. Use them to move paper boat.
+1. Move boat to meta sign to finish level. 
+1. The less rocks you will use, the better! 
+1. You are supposed to move all of your boats to finish level. 
 
-```sh
-# install the repo with npm
-npm install
+### Obstacles: 
 
-# start the dev server
-npm start
-```
+* Watch carefully your boats' life. Don’t throw rocks directly onto them. 
+* Floating sticks can slow you down and also deal some damage to your boat.
+* Naval mines will explode if touched. They may deal serious damage to your boat. 
+* Rocks are immovable objects. They deal some damage. Good luck!
 
-
-##Server
-
-```sh
-# development
-npm run server
-
-# production
-npm run build:prod && npm run server:prod
-```
-
-##Test
-```sh
-npm run test
-```
-
-##Clean
-```sh
-# clean all cache node modules etc
-npm run clean
-
-# awesome-typescript-loader has its own cache which can be cleared 
-# worth trying if you are seeing strange results!
-npm run clean:typescript
-
-```
-
+![game](/doc/game_1.png)
