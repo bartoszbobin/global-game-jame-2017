@@ -78,5 +78,7 @@ export class LevelsManager {
         highScore.sort((a, b) => a.score - b.score);
         let hs = highScore.slice(0, 10);
         localStorage.setItem('highScore', JSON.stringify(hs));
+
+        this.game.state.start('HighScore');
     }
 }
