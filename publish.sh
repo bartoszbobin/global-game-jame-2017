@@ -1,5 +1,5 @@
 #!/bin/bash
-# usage in gh-pages dir: ./publish.sh /c/Workspaces/github/global-game-jame-2017/ .
+# usage: ./publish.sh /c/Workspaces/github/global-game-jame-2017/ /c/temp/global-game-jame-2017
 # other example: ./publish.sh ~/base_repo ~/folder_with_gh_pages
 
 base_repo=$1
