@@ -104,7 +104,7 @@
 	    function ScoreManager() {
 	    }
 	    ScoreManager.saveScore = function (usedRocks) {
-	        var highScore = JSON.parse(localStorage.getItem('highScore'));
+	        var highScore = JSON.parse(localStorage.getItem('highScore')) || [];
 	        highScore.push({ userName: localStorage.getItem('userName'), score: usedRocks });
 	        localStorage.setItem('highScore', JSON.stringify(highScore));
 	    };
