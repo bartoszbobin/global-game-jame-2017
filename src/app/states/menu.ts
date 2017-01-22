@@ -49,7 +49,7 @@ export class MenuState extends Phaser.State {
     }
 
     showTutorial() {
-        this.game.state.start('Tutorial');
+        this.game.state.start('Tutorial1');
     }
 
     addLetter(char, keyInfo) {
