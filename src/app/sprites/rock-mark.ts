@@ -3,6 +3,7 @@ import {RockHit} from '../data/rock-hit';
 import {HitPower} from '../data/hit-power';
 import Circle = Phaser.Circle;
 import {WaterWave} from './water-wave';
+import {ENABLE_POLYGONS} from '../../index';
 
 export class RockMark extends Phaser.Sprite {
     private static WAVE_OFFSET = 20;
@@ -32,11 +33,11 @@ export class RockMark extends Phaser.Sprite {
         this.position.y = rockHit.toPoint.y;
         this.game.add.existing(this.waterWaves);
 
-        this.game.physics.p2.enable(this, false);
+        this.game.physics.p2.enable(this, ENABLE_POLYGONS);
         this.updateCircles();
         this.getP2Body().mass = 10;
         this.getP2Body().static = true;
-
+console.debug('hit', <any> this.getP2Body().rotation);
         this.game.add.tween(this)
             .to({}, 1000, () => this.updateCircles())
             .start().onComplete.addOnce(() => {
@@ -55,7 +56,7 @@ export class RockMark extends Phaser.Sprite {
     }
 
     private updateCircles() : void {
-        let factor = (this.power / (.9 * HitPower.MAX_HOLD_TIME / 10));
+        let factor = (this.power / (1.2 * HitPower.MAX_HOLD_TIME / 10));
         this.counter ++;
 
         if (this.counter === 1 || this.counter % RockMark.WAVE_OFFSET === 0) {

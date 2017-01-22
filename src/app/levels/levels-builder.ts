@@ -2,6 +2,7 @@ import {Obstacle} from '../sprites/obstacle';
 import {Boat} from '../sprites/boat';
 import {FinishZone} from '../sprites/finish-zone';
 import {LevelBase} from './level-base';
+import {ENABLE_POLYGONS} from '../../index';
 
 export class LevelBuilder {
     private boatsPositions: { x: number, y: number }[] = [];
@@ -33,7 +34,7 @@ export class LevelBuilder {
             const boat = new Boat(this.game, dim.x, dim.y);
 
             this.game.add.existing(boat);
-            this.game.physics.p2.enable(boat);
+            this.game.physics.p2.enable(boat, ENABLE_POLYGONS);
 
             boat.setupBody();
 

@@ -6,17 +6,19 @@ export class Boat extends Phaser.Sprite {
     private static HEALTH_COLOR_GOOD = '#BBFF00';
     private static HEALTH_COLOR_WEAK = '#FFDB00';
     private static HEALTH_COLOR_BAD = '#FF5C41';
+
     private static HEALTH_VERTICAL_OFFSET = 9;
     private static HEALTH_HORIZONTAL_OFFSET = -26;
 
     health : number = 100;
     private healthText: Phaser.Text;
+    private safe: boolean = false;
 
     constructor(game : Phaser.Game, positionX : number, positionY : number) {
         super(game, positionX, positionY, 'boat-paper');
 
         this.game = game;
-        this.anchor.setTo(0.5, 0.5);
+        this.anchor.setTo(0.5, 0);
         this.healthText = this.game.add.text(this.position.x, this.position.y, '', {
             font: '11px Chewy'
         });
@@ -25,6 +27,29 @@ export class Boat extends Phaser.Sprite {
         let hitAnimation = this.addAnimation('hit');
         let swimUpAnimation = this.addAnimation('swim_up');
         swimUpAnimation.play();
+    }
+
+    public isSafe() : boolean {
+        return this.safe;
+    }
+
+    public makeSafe(zonePoint : Phaser.Point) : void {
+        this.safe = true;
+
+        this.getP2Body().clearShapes();
+        this.getP2Body().static = true;
+
+        this.getP2Body().setZeroDamping();
+        this.getP2Body().setZeroRotation();
+
+        this.game.add.tween(this.healthText)
+            .to({ alpha: 0 }, 250)
+            .start()
+            .onComplete.addOnce(() => this.healthText.destroy());
+
+        this.game.add.tween(this)
+            .to({ alpha: 0 }, 500)
+            .start();
     }
 
     public isDead() {
@@ -55,6 +80,8 @@ export class Boat extends Phaser.Sprite {
         this.updateHealthText();
         if (this.health <= 0) {
             this.startSinkingAnimation();
+        } else {
+            this.startWoundedAnimation();
         }
     }
 
@@ -66,7 +93,7 @@ export class Boat extends Phaser.Sprite {
         this.getP2Body().velocity.x = 0.5;
         this.getP2Body().velocity.y = 0.1;
         this.getP2Body().damping = .15;
-        this.getP2Body().setCircle(14, -5, -4);
+        this.getP2Body().setCircle(14, -4, -6);
     }
 
     handleContact(body) {
@@ -98,5 +125,13 @@ export class Boat extends Phaser.Sprite {
         this.game.add.tween(this)
             .to({alpha: 0}, 500)
             .start();
+    }
+
+    private startWoundedAnimation() {
+        this.game.add.tween(this)
+            .to({alpha: 0.5}, 150)
+            .yoyo(true)
+            .repeat(1)
+            .start().onComplete.addOnce(() => this.game.add.tween(this).to({alpha: 1}, 150).start());
     }
 }

@@ -3,10 +3,11 @@ import * as Phaser from 'phaser';
 import {getRandomInt} from '../utils';
 import {Boat} from './boat';
 import {WaterWave} from './water-wave';
+import {ENABLE_POLYGONS} from '../../index';
 
 export class Obstacle extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
-    protected damagePower: number = 5;
+    protected damagePower: number = 3;
 
     constructor(game: Phaser.Game, protected asset: ObstacleAsset, positionX: number, positionY: number, protected rotationInArcs: number = 0) {
         super(game, positionX, positionY, asset);
@@ -14,7 +15,7 @@ export class Obstacle extends Phaser.Sprite {
         this.game = game;
         this.anchor.setTo(0.5, 0.5);
 
-        this.game.physics.p2.enable(this);
+        this.game.physics.p2.enable(this, ENABLE_POLYGONS);
         this.setupBody();
         this.p2Body.onBeginContact.add((body) => this.handleContact(body), this.game.state);
     }
@@ -23,6 +24,9 @@ export class Obstacle extends Phaser.Sprite {
         this.p2Body.static = true;
         this.p2Body.clearShapes();
         this.p2Body.angle = this.rotationInArcs;
+        this.p2Body.velocity.x = 0.1;
+        this.p2Body.velocity.y = 0.1;
+        this.p2Body.damping = 0.75;
         this.loadPolygon();
     }
 
@@ -65,7 +69,7 @@ export class WoodObstacle extends Obstacle {
         super(game, 'wood', positionX, positionY, rotationInArcs);
 
         this.p2Body.mass = 450;
-        this.p2Body.static = false;
+        this.p2Body.static = true;
     }
 }
 
@@ -85,7 +89,7 @@ export class NavalMineObstacle extends Obstacle {
     constructor(game: Phaser.Game, positionX: number, positionY: number, rotationInArcs: number = 0) {
         super(game, 'naval-mine', positionX, positionY, rotationInArcs);
 
-        this.damagePower = 25;
+        this.damagePower = 40;
     }
 
     public isArmed() {
@@ -175,7 +179,7 @@ export class RocksGroupObstacle extends Phaser.Sprite {
         this.angle = rotationInArcs;
 
         this.loadChildRocks(rocksNumber);
-        this.game.physics.p2.enable(this);
+        this.game.physics.p2.enable(this, ENABLE_POLYGONS);
         this.p2Body.static = true;
     }
 

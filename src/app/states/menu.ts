@@ -5,6 +5,7 @@ export class MenuState extends Phaser.State {
     private startButton;
     private isBackspaceDisabled = false;
     private userNameText: Phaser.Text;
+    private tutorialButton;
 
     init() {
         this.userName = '';
@@ -13,6 +14,7 @@ export class MenuState extends Phaser.State {
     preload() {
         this.load.image('menu-start-button', './assets/images/menu-start-button.png');
         this.load.image('menu-background', './assets/images/menu-background.png');
+        this.load.image('instructions-button', './assets/images/menu-instructions-button.png');
 
         let letterFont = '55px Chewy';
         let letterStyle = '#000000';
@@ -28,7 +30,8 @@ export class MenuState extends Phaser.State {
 
     create() {
         this.add.tileSprite(0, 0, 1280, 620, 'menu-background');
-        this.startButton = this.add.button(425, 425, 'menu-start-button', this.startGame, this);
+        this.startButton = this.add.button(425, 385, 'menu-start-button', this.startGame, this);
+        this.tutorialButton = this.add.button(490, 505, 'instructions-button', this.showTutorial, this);
         this.startButton.inputEnabled = false;
         this.removeLetterOnBackspacePress();
     }
@@ -49,6 +52,10 @@ export class MenuState extends Phaser.State {
                 this.game.world.bringToTop(this.userNameText);
             }
         });
+    }
+
+    showTutorial() {
+        this.game.state.start('Tutorial1');
     }
 
     addLetter(char, keyInfo) {

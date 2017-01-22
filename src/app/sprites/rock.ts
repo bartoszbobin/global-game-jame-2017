@@ -49,7 +49,6 @@ export class Rock extends Phaser.Sprite {
         this.position.x = this.player.position.x;
         this.position.y = this.player.position.y;
 
-
         this.readyToHit = false;
         this.rockHit = rockHit;
         this.visible = true;

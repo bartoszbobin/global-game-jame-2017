@@ -1,6 +1,7 @@
 import {Obstacle} from '../sprites/obstacle';
 import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
+import {ENABLE_POLYGONS} from '../../index';
 
 export class LevelBase extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };
@@ -20,13 +21,15 @@ export class LevelBase extends Phaser.Sprite {
         this.scale.setTo(0.5);
 
         this.game.add.existing(this);
-        this.game.physics.p2.enable(this);
+        this.game.physics.p2.enable(this, ENABLE_POLYGONS);
 
         this.p2Body.clearShapes();
         this.p2Body.loadPolygon(`levelPhysics-${levelNumber}`, `level-${this.levelNumber}-polygon`);
         this.p2Body.static = true;
         this.p2Body.x = 640;
         this.p2Body.y = 310;
+        this.p2Body.velocity.x = 0.001;
+        this.p2Body.velocity.y = 0.001;
 
         this.addObstacles(obstacles);
         this.addFinishZone(finishZone);
@@ -46,7 +49,7 @@ export class LevelBase extends Phaser.Sprite {
 
     private addFinishZone(finishZone: FinishZone) {
         this.game.add.existing(finishZone);
-        this.game.physics.p2.enable(finishZone);
+        this.game.physics.p2.enable(finishZone, ENABLE_POLYGONS);
         finishZone.setupBody();
     }
 

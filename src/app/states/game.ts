@@ -46,33 +46,37 @@ export class GameState extends Phaser.State {
         this.addScorePanel(500, 10);
     }
 
-    render() {
-        if (window['__DEV__']) {
-            this.game.debug.spriteInfo(this.mushroom, 32, 32);
-        }
-    }
-
     update(): void {
         super.update();
 
-        let boats = this.level.boats;
-        let boatNumStillInGame = boats.length;
-
-        for (const boat of boats) {
-            if (boat.isDead()) {
-                boatNumStillInGame--;
-            }
-        }
-
-        if (!boatNumStillInGame) {
-            this.game.state.start('GameOver');
+        if (this.isGameOver()) {
             return;
         }
 
-        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
+        if (this.isLevelFinished()) {
+            return;
+        }
 
-        this.player.setAngleInDeg(angleInDeg);
+        this.handlePlayerRotation();
+        this.handleRockHitting();
 
+        this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
+        if (this.hitPower) {
+            this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
+            }
+        } else {
+            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
+                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
+            }
+        }
+
+    }
+
+    private handleRockHitting() {
         if (this.mousePointer.isDown) {
             if (!this.hitPower) {
                 if (this.rockSprite.isReadyToHit()) {
@@ -91,6 +95,7 @@ export class GameState extends Phaser.State {
             // throwing rock
             if (!this.hitPower.waitingTooShort()) {
                 const hitPower: number = this.hitPower.getPower();
+                const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
                 let rockHit = new RockHit(this.player.position.clone(), this.mousePointer.position.clone(), angleInDeg, hitPower);
                 this.rockSprite.hit(rockHit)
                     .then(() => {
@@ -100,21 +105,11 @@ export class GameState extends Phaser.State {
             }
             this.hitPower = null;
         }
+    }
 
-        this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
-        if (this.hitPower) {
-            this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
-            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
-                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
-                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
-            }
-        } else {
-            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
-                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
-                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, 0);
-            }
-        }
-
+    private handlePlayerRotation() {
+        const angleInDeg = Phaser.Math.radToDeg(Phaser.Math.angleBetweenPoints(this.player.position.clone(), this.mousePointer.position.clone()));
+        this.player.setAngleInDeg(angleInDeg);
     }
 
     private addPlayer() {
@@ -158,13 +153,13 @@ export class GameState extends Phaser.State {
     }
 
     private addPlayerInfo() {
-        this.playerInfo = this.add.text(this.game.width - 200, 10, localStorage.getItem('userName'), {});
+        this.playerInfo = this.add.text(575, 565, localStorage.getItem('userName'), {});
         this.playerInfo.font = 'Chewy';
         this.playerInfo.fontSize = 40;
     }
 
     private addScorePanel(x: number, y: number) {
-        this.scorePanel = new ScorePanel(this.game, this.player, this.game.width - 90, 27);
+        this.scorePanel = new ScorePanel(this.game, this.player, 700, 583);
         this.game.add.existing(this.scorePanel);
     }
 
@@ -174,5 +169,35 @@ export class GameState extends Phaser.State {
 
         this.powerMeter = new PowerMeter(this.game);
         this.game.add.existing(this.powerMeter);
+    }
+
+    private isGameOver() : boolean {
+        for (const boat of this.level.boats) {
+            if (boat.isDead()) {
+                this.game.state.start('GameOver');
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private isLevelFinished() : boolean {
+        let boats = this.level.boats;
+        let boatNumStillInGame = boats.length;
+
+        for (const boat of boats) {
+            if (boat.isSafe()) {
+                boatNumStillInGame--;
+            }
+        }
+
+        if (!boatNumStillInGame) {
+            let state = this.game.state.states.Game as GameState;
+            state.levelsManager.goToNext();
+            return true;
+        }
+
+        return false;
     }
 }
