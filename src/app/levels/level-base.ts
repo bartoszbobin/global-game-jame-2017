@@ -1,7 +1,7 @@
 import {Obstacle} from '../sprites/obstacle';
 import {FinishZone} from '../sprites/finish-zone';
 import {Boat} from '../sprites/boat';
-import {ENABLE_POLYGONS} from '../../index';
+import {ENABLE_POLYGONS} from '../data/global';
 
 export class LevelBase extends Phaser.Sprite {
     protected get p2Body(): Phaser.Physics.P2.Body { return this.body; };

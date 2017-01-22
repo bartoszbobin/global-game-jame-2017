@@ -1,9 +1,8 @@
 import * as Phaser from 'phaser';
 import {RockHit} from '../data/rock-hit';
 import {HitPower} from '../data/hit-power';
-import Circle = Phaser.Circle;
 import {WaterWave} from './water-wave';
-import {ENABLE_POLYGONS} from '../../index';
+import {ENABLE_POLYGONS} from '../data/global';
 
 export class RockMark extends Phaser.Sprite {
     private static WAVE_OFFSET = 21;
