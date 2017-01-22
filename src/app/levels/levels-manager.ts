@@ -75,6 +75,7 @@ export class LevelsManager {
 
     private finishGame() {
         ScoreManager.saveScore(ScoreManager.actualScore);
+        ScoreManager.actualScore = 0;
         this.game.state.start('HighScore');
     }
 }
