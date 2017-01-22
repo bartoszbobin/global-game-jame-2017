@@ -164,31 +164,33 @@
 	                },
 	                {
 	                    value: new levels_builder_1.LevelBuilder(2, game)
-	                        .withPlayer(640, 470)
+	                        .withPlayer(640, 420)
 	                        .withBoats([
 	                        { x: 237, y: 538 },
 	                        { x: 195, y: 460 },
 	                    ])
 	                        .withObstacles(function () { return [
-	                        new obstacle_1.StickObstacle(_this.game, 320, 270. - 10),
-	                        new obstacle_1.StickObstacle(_this.game, 120, 350, -85),
 	                        new obstacle_1.StickObstacle(_this.game, 200, 300, -45),
-	                        new obstacle_1.StickObstacle(_this.game, 970, 150, 90),
-	                        new obstacle_1.StickObstacle(_this.game, 420, 190, -20),
+	                        new obstacle_1.StickObstacle(_this.game, 890, 120, 10),
+	                        new obstacle_1.StickObstacle(_this.game, 990, 140, 100),
+	                        new obstacle_1.StickObstacle(_this.game, 955, 240, 50),
+	                        new obstacle_1.StickObstacle(_this.game, 440, 110, -20),
+	                        new obstacle_1.StickObstacle(_this.game, 610, 195, -20),
 	                        new obstacle_1.WhirlpoolObstacle(_this.game, 310, 400),
 	                        new obstacle_1.WhirlpoolObstacle(_this.game, 200, 180),
 	                        new obstacle_1.WoodObstacle(_this.game, 110, 510, 45),
 	                        new obstacle_1.WoodObstacle(_this.game, 260, 570, -20),
+	                        new obstacle_1.WoodObstacle(_this.game, 1190, 340, -250),
 	                        new obstacle_1.RockObstacle(_this.game, 200, 30, -15),
-	                        new obstacle_1.RockObstacle(_this.game, 320, 440, 10),
+	                        new obstacle_1.RockObstacle(_this.game, 315, 440, 10),
 	                        new obstacle_1.RockObstacle(_this.game, 280, 445, 180),
 	                        new obstacle_1.RockObstacle(_this.game, 310, 480, 15),
 	                        new obstacle_1.RockObstacle(_this.game, 800, 300, -15),
 	                        new obstacle_1.RockObstacle(_this.game, 900, 460, 45),
 	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
 	                        new obstacle_1.RockObstacle(_this.game, 720, 500, 0),
+	                        new obstacle_1.RockObstacle(_this.game, 680, 190, 20),
 	                        new obstacle_1.NavalMineObstacle(_this.game, 330, 130, -10),
-	                        new obstacle_1.NavalMineObstacle(_this.game, 490, 353, 0),
 	                        new obstacle_1.NavalMineObstacle(_this.game, 1045, 345, 0),
 	                        new obstacle_1.NavalMineObstacle(_this.game, 500, 210, 0),
 	                    ]; })
@@ -1478,7 +1480,7 @@
 	        this.levelsManager = new levels_manager_1.LevelsManager(this.game);
 	        this.level = this.levelsManager.activeLevel;
 	        this.addPlayer(this.level.playerPosition);
-	        this.addMouseInfo();
+	        // this.addMouseInfo();
 	        this.addPowerMeter();
 	        this.addRockSprite();
 	        this.addPlayerInfo();
@@ -1494,9 +1496,9 @@
 	        }
 	        this.handlePlayerRotation();
 	        this.handleRockHitting();
-	        this.mouseInfo.text = "(" + this.mousePointer.x + ", " + this.mousePointer.y + ")";
+	        // this.mouseInfo.text = `(${this.mousePointer.x}, ${this.mousePointer.y})`;
 	        if (this.hitPower) {
-	            this.mouseInfo.text += " - Hit power " + this.hitPower.getPower();
+	            // this.mouseInfo.text += ` - Hit power ${this.hitPower.getPower()}`;
 	            if (this.mousePointer && this.mousePointer.x && this.mousePointer.y) {
 	                this.powerMeter.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
 	                this.powerMeterBg.setPosition(this.mousePointer.x, this.mousePointer.y, this.hitPower.getPower());
@@ -1548,13 +1550,13 @@
 	        this.player = new player_1.Player(this.game, position.x, position.y);
 	        this.game.add.existing(this.player);
 	    };
-	    GameState.prototype.addMouseInfo = function () {
-	        this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
-	        this.mouseInfo.font = 'Chewy';
-	        this.mouseInfo.fontSize = 14;
-	        this.mouseInfo.fill = '#000000';
-	        this.mouseInfo.anchor.setTo(0);
-	    };
+	    // private addMouseInfo() {
+	    //     this.mouseInfo = this.add.text(10, this.game.height - 30, 'Mouse info', {});
+	    //     this.mouseInfo.font = 'Chewy';
+	    //     this.mouseInfo.fontSize = 14;
+	    //     this.mouseInfo.fill = '#000000';
+	    //     this.mouseInfo.anchor.setTo(0);
+	    // }
 	    GameState.prototype.addRockSprite = function () {
 	        this.rockSprite = new rock_1.Rock(this.game, this.player);
 	        this.game.add.existing(this.rockSprite);
