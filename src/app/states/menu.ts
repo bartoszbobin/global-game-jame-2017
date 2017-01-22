@@ -1,12 +1,10 @@
 import * as Phaser from 'phaser';
 
 export class MenuState extends Phaser.State {
-
-    private letter1;
-    private letter2;
-    private letter3;
     private userName = '';
     private startButton;
+    private isBackspaceDisabled = false;
+    private userNameText: Phaser.Text;
 
     init() {
         this.userName = '';
@@ -19,17 +17,11 @@ export class MenuState extends Phaser.State {
         let letterFont = '55px Chewy';
         let letterStyle = '#000000';
 
-        this.letter1 = this.game.make.bitmapData(100, 100);
-        this.letter1.context.font = letterFont;
-        this.letter1.context.fillStyle = letterStyle;
-
-        this.letter2 = this.game.make.bitmapData(100, 100);
-        this.letter2.context.font = letterFont;
-        this.letter2.context.fillStyle = letterStyle;
-
-        this.letter3 = this.game.make.bitmapData(100, 100);
-        this.letter3.context.font = letterFont;
-        this.letter3.context.fillStyle = letterStyle;
+        this.userNameText = this.game.add.text(640, 340, '', {
+            font: letterFont,
+            fill: letterStyle
+        });
+        this.userNameText.anchor.setTo(0.5, 0.5);
 
         this.input.keyboard.addCallbacks(this, null, null, this.addLetter);
     }
@@ -38,6 +30,7 @@ export class MenuState extends Phaser.State {
         this.add.tileSprite(0, 0, 1280, 620, 'menu-background');
         this.startButton = this.add.button(425, 425, 'menu-start-button', this.startGame, this);
         this.startButton.inputEnabled = false;
+        this.removeLetterOnBackspacePress();
     }
 
     startGame() {
@@ -45,28 +38,40 @@ export class MenuState extends Phaser.State {
         this.game.state.start('Game');
     }
 
+    removeLetterOnBackspacePress() {
+        const backspaceKeyCode = 8;
+
+        document.addEventListener("keydown", (e) => {
+            if (this.userName.length && e.keyCode === backspaceKeyCode) {
+                this.userName = this.userName.substr(0, this.userName.length - 1);
+
+                this.userNameText.setText(this.userName);
+                this.game.world.bringToTop(this.userNameText);
+            }
+        });
+    }
+
     addLetter(char, keyInfo) {
-        if (this.userName.length === 0) {
-            this.letter1.context.fillText(char.toUpperCase(), 55, 55);
-            this.letter1.addToWorld(500, 300);
-            this.userName += char.toUpperCase();
-        } else if (this.userName.length === 1) {
-            this.letter2.context.fillText(char.toUpperCase(), 55, 55);
-            this.letter2.addToWorld(570, 300);
-            this.userName += char.toUpperCase();
-        } else if (this.userName.length === 2) {
-            this.letter3.context.fillText(char.toUpperCase(), 55, 55);
-            this.letter3.addToWorld(640, 300);
-            this.userName += char.toUpperCase();
-            this.startButton.inputEnabled = true;
+        if (keyInfo.code === "Space" || (keyInfo.code === 'Enter' && this.userName.length < 3)) {
+            return false
         }
 
-        if (this.userName.length === 3 && keyInfo.code === 'Enter') {
+        if (this.userName.length < 3) {
+            this.userName += char.toUpperCase();
+
+            if (this.userName.length === 3) {
+                 this.startButton.inputEnabled = true;
+            }
+        }
+
+        this.userNameText.setText(this.userName);
+        this.game.world.bringToTop(this.userNameText);
+
+        if (keyInfo.code === 'Enter' && this.startButton.inputEnabled) {
             this.startGame();
         }
     }
 }
-
 
 
 
